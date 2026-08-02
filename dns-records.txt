@@ -1,0 +1,14 @@
+Pour serviceschablais.fr, configurez ces enregistrements chez votre registrar :
+
+A records :
+- 185.199.108.153
+- 185.199.109.153
+- 185.199.110.153
+- 185.199.111.153
+
+CNAME :
+- www -> fableyab.github.io
+
+Notes :
+- Le domaine actuel pointe vers un parking DNS. Il faut remplacer les enregistrements existants par ceux-ci.
+- Une fois les DNS propagés, l’URL https://serviceschablais.fr/ sera servie par GitHub Pages.
