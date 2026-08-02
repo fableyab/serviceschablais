@@ -26,9 +26,7 @@
   html{scroll-behavior:smooth;}
   body{
     font-family:'Inter', sans-serif;
-    background:
-      radial-gradient(circle at top left, rgba(198,162,100,0.18) 0%, transparent 32%),
-      linear-gradient(180deg, #f8f5ee 0%, var(--mist) 100%);
+    background:var(--mist);
     color:var(--ink);
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
@@ -45,13 +43,16 @@
     text-transform:uppercase;
     color:var(--brass);
   }
+
+  /* Contour signature line — silhouette lac + relief du Chablais */
   .contour{width:100%; height:auto; display:block;}
+
+  /* NAVBAR */
   header{
     position:sticky; top:0; z-index:50;
     background:rgba(246,244,238,0.92);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid rgba(24,36,40,0.08);
-    box-shadow:0 8px 30px rgba(19,42,48,0.05);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
   }
   nav{
     display:flex; align-items:center; justify-content:space-between;
@@ -68,33 +69,23 @@
   .nav-phone{font-size:14px; font-weight:500;}
   .nav-phone .mono{color:var(--brass); font-size:14px;}
   .btn{
-    display:inline-block; font-size:14px; font-weight:600;
-    padding:12px 24px; border-radius:999px;
-    transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
-    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    display:inline-block; font-size:14px; font-weight:500;
+    padding:11px 22px; border-radius:2px;
+    transition:all .15s ease;
   }
-  .btn:hover{transform:translateY(-2px);}
-  .btn-primary{background:linear-gradient(135deg, var(--lake), var(--lake-deep)); color:var(--mist);}
-  .btn-primary:hover{background:linear-gradient(135deg, var(--lake-deep), #2a5961);}
-  .btn-outline{border:1px solid rgba(24,36,40,0.16); color:var(--ink); background:rgba(255,255,255,0.65); box-shadow:none;}
+  .btn-primary{background:var(--lake); color:var(--mist);}
+  .btn-primary:hover{background:var(--lake-deep);}
+  .btn-outline{border:1px solid var(--ink); color:var(--ink);}
   .btn-outline:hover{background:var(--ink); color:var(--mist);}
   @media (max-width:880px){ .nav-links{display:none;} }
+
+  /* HERO */
   .hero{
-    padding:120px 0 92px; position:relative; overflow:hidden;
+    padding:110px 0 0; position:relative; overflow:hidden;
     background:
-      linear-gradient(120deg, rgba(19,42,48,0.96) 0%, rgba(19,42,48,0.85) 36%, rgba(19,42,48,0.62) 72%, rgba(19,42,48,0.34) 100%),
+      linear-gradient(115deg, rgba(19,42,48,0.94) 0%, rgba(19,42,48,0.86) 38%, rgba(19,42,48,0.55) 68%, rgba(19,42,48,0.3) 100%),
       url('https://images.unsplash.com/photo-1559673426-8c17b4b9bf87?fm=jpg&q=70&w=1800&auto=format&fit=crop')
       center/cover no-repeat;
-  }
-  .hero::before{
-    content:''; position:absolute; inset:-15% -8% auto auto; width:420px; height:420px;
-    background:radial-gradient(circle, rgba(198,162,100,0.28) 0%, transparent 70%);
-    pointer-events:none;
-  }
-  .hero::after{
-    content:''; position:absolute; left:-10%; bottom:-18%; width:300px; height:300px;
-    background:radial-gradient(circle, rgba(255,255,255,0.13) 0%, transparent 70%);
-    border-radius:50%; pointer-events:none;
   }
   .hero-photo-note{
     position:absolute; bottom:10px; right:32px; z-index:2;
@@ -103,7 +94,7 @@
   }
   .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:center; position:relative; z-index:1; padding-bottom:60px;}
   .hero .eyebrow{color:var(--brass-light);}
-  .hero h1{font-size:52px; line-height:1.08; font-weight:500; color:var(--mist); margin:18px 0 22px; max-width:680px;}
+  .hero h1{font-size:52px; line-height:1.08; font-weight:500; color:var(--mist); margin:18px 0 22px;}
   .hero h1 em{font-style:italic; color:var(--brass-light);}
   .hero p.lead{font-size:18px; color:#CBD6D5; max-width:460px; margin-bottom:32px;}
   .hero-ctas{display:flex; gap:14px; margin-bottom:40px; flex-wrap:wrap;}
@@ -112,6 +103,8 @@
   .trust-bar{display:flex; gap:28px; flex-wrap:wrap; padding-top:28px; border-top:1px solid rgba(246,244,238,0.18);}
   .trust-item{font-size:13px; color:#B9C4C3;}
   .trust-item b{display:block; font-family:'Cormorant Garamond',serif; font-size:26px; color:var(--mist); font-weight:600;}
+
+  /* BANDEAU AGREMENTS */
   .accreditations{background:var(--white); border-bottom:1px solid var(--line);}
   .accred-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);}
   .accred-item{background:var(--white); padding:26px 24px; display:flex; gap:14px; align-items:flex-start;}
@@ -119,64 +112,93 @@
   .accred-item h4{font-size:14.5px; font-weight:600; margin-bottom:3px;}
   .accred-item p{font-size:12.5px; color:var(--ink-soft);}
   @media (max-width:880px){ .accred-grid{grid-template-columns:1fr 1fr;} }
-  .wa-float{position:fixed; bottom:24px; right:24px; z-index:60; background:#25D366; color:#fff; width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(0,0,0,0.25);}
+
+  /* WHATSAPP FLOAT */
+  .wa-float{
+    position:fixed; bottom:24px; right:24px; z-index:60;
+    background:#25D366; color:#fff; width:56px; height:56px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(0,0,0,0.25);
+  }
   .wa-float svg{width:28px; height:28px;}
+
+  /* FORMULAIRE AVANCE */
   .booking{background:var(--white); border-top:1px solid var(--line);}
   .booking-box{display:grid; grid-template-columns:1.1fr 0.9fr; gap:0; border:1px solid var(--line); border-radius:4px; overflow:hidden;}
   .booking-form{padding:44px; background:var(--white);}
   .booking-summary{padding:44px; background:var(--lake-deep); color:var(--mist);}
   .field-row{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;}
   .field{margin-bottom:16px;}
-  .field input, .field select, .field textarea{width:100%; border:1px solid var(--line); border-radius:2px; padding:13px 12px; font-family:'Inter',sans-serif; font-size:16px; color:var(--ink); background:var(--mist);} 
-  .field label{display:block; font-size:13.5px; font-weight:500; margin-bottom:6px; color:var(--ink-soft);} 
+  .field input, .field select, .field textarea{
+    width:100%; border:1px solid var(--line); border-radius:2px; padding:13px 12px;
+    font-family:'Inter',sans-serif; font-size:16px; color:var(--ink); background:var(--mist);
+  }
+  .field label{display:block; font-size:13.5px; font-weight:500; margin-bottom:6px; color:var(--ink-soft);}
   .field label .opt{font-weight:400; color:var(--ink-soft); font-size:12px;}
   .field-hint{font-size:13px; color:var(--ink-soft); margin:-8px 0 18px;}
-  .senior-note{display:flex; gap:16px; align-items:flex-start; background:var(--mist-deep); border:1px solid var(--line); border-radius:4px; padding:20px 24px; margin-bottom:36px; max-width:720px;}
+  .senior-note{
+    display:flex; gap:16px; align-items:flex-start;
+    background:var(--mist-deep); border:1px solid var(--line); border-radius:4px;
+    padding:20px 24px; margin-bottom:36px; max-width:720px;
+  }
   .senior-note i{font-style:normal; font-size:22px;}
   .senior-note strong{display:block; font-size:15.5px; margin-bottom:4px;}
   .senior-note p{font-size:14.5px; color:var(--ink-soft);}
   .senior-note a{color:var(--brass); font-weight:500;}
-  .field input:focus, .field select:focus, .field textarea:focus{outline:none; border-color:var(--brass);} 
+  .field input:focus, .field select:focus, .field textarea:focus{outline:none; border-color:var(--brass);}
+  .slots{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:8px;}
+  .slot{border:1px solid var(--line); border-radius:2px; padding:9px; text-align:center; font-size:13px; font-family:'IBM Plex Mono',monospace; cursor:pointer; background:var(--mist);}
+  .slot.selected{background:var(--lake); color:var(--mist); border-color:var(--lake);}
   .summary-line{display:flex; justify-content:space-between; padding:10px 0; border-top:1px solid rgba(255,255,255,0.14); font-size:14px;}
   .summary-line:first-of-type{border-top:none;}
   #card-element{background:var(--white); padding:12px; border-radius:2px; margin:14px 0;}
   .pay-note{font-size:11.5px; color:#A9BDC2; margin-top:10px; line-height:1.5;}
   @media (max-width:880px){ .booking-box{grid-template-columns:1fr;} .field-row{grid-template-columns:1fr;} }
-  .hero-card{background:linear-gradient(145deg, rgba(37,66,75,0.98), rgba(19,42,48,0.95)); color:var(--mist); border-radius:20px; padding:36px; position:relative; border:1px solid rgba(255,255,255,0.12); box-shadow:0 18px 45px rgba(0,0,0,0.24);}
-  .hero-card .eyebrow{color:var(--brass-light);} 
+
+  .hero-card{
+    background:var(--lake); color:var(--mist);
+    border-radius:4px; padding:36px;
+    position:relative;
+  }
+  .hero-card .eyebrow{color:var(--brass-light);}
   .hero-card h3{font-size:24px; font-weight:500; margin:10px 0 18px;}
   .hero-card ul{list-style:none; font-size:14.5px;}
-  .hero-card li{display:flex; gap:10px; padding:10px 0; border-top:1px solid rgba(255,255,255,0.14);} 
+  .hero-card li{display:flex; gap:10px; padding:9px 0; border-top:1px solid rgba(255,255,255,0.14);}
   .hero-card li:first-child{border-top:none;}
+
+  /* SECTION shared */
   section{padding:88px 0;}
   .section-head{max-width:600px; margin-bottom:52px;}
   .section-head h2{font-size:38px; font-weight:500; margin:12px 0 14px;}
   .section-head p{color:var(--ink-soft); font-size:16px;}
+
+  /* SERVICES */
   .services{background:var(--white); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
   .service-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
-  .service-card{background:var(--white); padding:34px 30px; border:1px solid transparent; border-radius:18px; box-shadow:0 10px 30px rgba(24,36,40,0.05); transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;}
-  .service-card:hover{transform:translateY(-4px); box-shadow:0 18px 40px rgba(24,36,40,0.1); border-color:rgba(150,114,58,0.26);} 
+  .service-card{background:var(--white); padding:34px 30px;}
   .service-num{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--brass); margin-bottom:16px; display:block;}
   .service-card h3{font-size:22px; font-weight:500; margin-bottom:10px;}
-  .service-card p{font-size:14.5px; color:var(--ink-soft);} 
+  .service-card p{font-size:14.5px; color:var(--ink-soft);}
   @media (max-width:880px){ .service-grid{grid-template-columns:1fr;} }
+
+  /* POURQUOI */
   .why-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;}
   .why-list{list-style:none;}
-  .why-list li{display:flex; gap:18px; padding:22px 0; border-top:1px solid var(--line);} 
+  .why-list li{display:flex; gap:18px; padding:22px 0; border-top:1px solid var(--line);}
   .why-list li:first-child{border-top:none;}
   .why-mark{font-family:'Cormorant Garamond',serif; font-size:22px; font-style:italic; color:var(--brass); flex-shrink:0;}
   .why-list h4{font-size:17px; font-weight:600; margin-bottom:4px;}
-  .why-list p{font-size:14.5px; color:var(--ink-soft);} 
+  .why-list p{font-size:14.5px; color:var(--ink-soft);}
   .why-visual{background:var(--mist-deep); border-radius:4px; padding:40px; height:100%;}
   .quote{font-family:'Cormorant Garamond', serif; font-style:italic; font-size:24px; line-height:1.5; color:var(--lake-deep);}
   .quote-by{margin-top:18px; font-size:13px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
+
+  /* TARIFS */
   .pricing{background:var(--lake-deep); color:var(--mist);}
   .pricing .section-head p{color:#A9BDC2;}
-  .pricing .eyebrow{color:var(--brass-light);} 
+  .pricing .eyebrow{color:var(--brass-light);}
   .price-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
-  .price-card{background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.14); border-radius:18px; padding:32px; transition:transform .2s ease, box-shadow .2s ease;}
-  .price-card:hover{transform:translateY(-3px); box-shadow:0 16px 34px rgba(0,0,0,0.14);}
-  .price-card.featured{border-color:var(--brass-light); background:rgba(198,162,100,0.08);} 
+  .price-card{background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.14); border-radius:4px; padding:32px;}
+  .price-card.featured{border-color:var(--brass-light); background:rgba(198,162,100,0.08);}
   .price-tag{font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:var(--brass-light); margin-bottom:14px;}
   .price-card h3{font-size:24px; font-weight:500; margin-bottom:6px;}
   .price-amount{font-family:'IBM Plex Mono',monospace; font-size:32px; margin:16px 0 4px;}
@@ -184,28 +206,33 @@
   .price-note{font-size:12.5px; color:#A9BDC2; margin-bottom:20px;}
   .price-card ul{list-style:none; font-size:14px; margin-bottom:24px;}
   .price-card li{padding:6px 0; color:#D6DFDF;}
-  .pay-strip{margin-top:36px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; padding-top:28px; border-top:1px solid rgba(255,255,255,0.14);} 
+  .pay-strip{margin-top:36px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; padding-top:28px; border-top:1px solid rgba(255,255,255,0.14);}
   .pay-strip p{font-size:13.5px; color:#A9BDC2;}
   @media (max-width:880px){ .price-grid{grid-template-columns:1fr;} .why-grid{grid-template-columns:1fr;} }
+
+  /* ZONE */
   .zone-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;}
   .zone-list{display:flex; flex-wrap:wrap; gap:10px 14px; margin-top:18px;}
-  .zone-pill{font-size:13.5px; font-family:'IBM Plex Mono',monospace; padding:6px 14px; border:1px solid var(--line); border-radius:2px; color:var(--ink-soft);} 
+  .zone-pill{font-size:13.5px; font-family:'IBM Plex Mono',monospace; padding:6px 14px; border:1px solid var(--line); border-radius:2px; color:var(--ink-soft);}
+
+  /* AVIS */
   .testimonials{background:var(--white); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
-  .test-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);} 
-  .test-card{background:var(--white); padding:30px; border-radius:16px; box-shadow:0 10px 30px rgba(24,36,40,0.04);}
+  .test-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .test-card{background:var(--white); padding:30px;}
   .stars{color:var(--brass); font-size:13px; margin-bottom:14px;}
   .test-card p{font-size:15px; color:var(--ink-soft); margin-bottom:18px;}
   .test-name{font-size:13px; font-weight:600;}
   .test-loc{font-size:12px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
   @media (max-width:880px){ .test-grid{grid-template-columns:1fr;} .zone-grid{grid-template-columns:1fr;} }
+
+  /* CTA FINAL */
   .cta-final{text-align:center;}
   .cta-final h2{font-size:42px; font-weight:500; max-width:640px; margin:0 auto 28px;}
   .cta-final .btn{padding:15px 34px; font-size:15px;}
-  .form-status{margin-top:10px; font-size:13px; color:#5c6b73;}
-  .form-status.error{color:#a63b3b;}
-  .form-status.success{color:#2f6f3f;}
+
+  /* FOOTER */
   footer{background:var(--ink); color:#C7CDCE; padding:60px 0 30px; font-size:13.5px;}
-  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.1);} 
+  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.1);}
   .foot-grid h4{font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--brass-light); margin-bottom:16px;}
   .foot-grid ul{list-style:none;}
   .foot-grid li{padding:6px 0;}
@@ -216,6 +243,7 @@
 </style>
 </head>
 <body>
+
 <header>
   <nav>
     <a href="#" class="logo">
@@ -238,13 +266,14 @@
     </div>
   </nav>
 </header>
+
 <section class="hero">
   <span class="hero-photo-note">Photo : Philipp Raifer, Unsplash</span>
   <div class="wrap hero-grid">
     <div>
       <span class="eyebrow">Thonon-les-Bains · Chablais · Bord du Léman</span>
       <h1>L'aide à domicile, <em>avec un seul interlocuteur</em>.</h1>
-      <p class="lead">Ménage, jardinage, petits travaux, aide aux seniors et conciergerie. Une intervention ponctuelle ou régulière, avec un seul interlocuteur à partir du premier appel.</p>
+      <p class="lead">Ménage, jardinage, petits travaux, aide aux seniors et conciergerie. Un artisan indépendant, un devis clair, une intervention rapide — sans plateforme, sans intermédiaire.</p>
       <div class="hero-ctas">
         <a href="#reservation" class="btn btn-primary">Réserver un créneau</a>
         <a href="https://wa.me/33456359240?text=Bonjour%2C%20je%20souhaite%20un%20devis%20pour%20une%20prestation" class="btn btn-whatsapp">
@@ -270,6 +299,7 @@
     </div>
   </div>
 </section>
+
 <section class="accreditations">
   <div class="wrap">
     <div class="accred-grid">
@@ -280,12 +310,13 @@
     </div>
   </div>
 </section>
+
 <section class="services" id="services">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Nos prestations</span>
       <h2>Des services du quotidien, faits sérieusement.</h2>
-      <p>Chaque mission est adaptée à votre logement, à votre rythme et à votre budget, avec une approche humaine et transparente.</p>
+      <p>À adapter avec la liste exacte et les intitulés de vos prestations actuelles.</p>
     </div>
   </div>
   <div class="wrap">
@@ -299,6 +330,7 @@
     </div>
   </div>
 </section>
+
 <section class="why">
   <div class="wrap why-grid">
     <div>
@@ -317,12 +349,13 @@
     </div>
   </div>
 </section>
+
 <section class="pricing" id="tarifs">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Tarifs</span>
       <h2>Un tarif clair, avant toute intervention.</h2>
-      <p>Nos tarifs sont ajustés selon la durée, la fréquence et la complexité des missions.</p>
+      <p>Grille indicative — à remplacer par vos tarifs réels et vos libellés de prestations.</p>
     </div>
     <div class="price-grid">
       <div class="price-card">
@@ -368,6 +401,7 @@
     </div>
   </div>
 </section>
+
 <section class="zone" id="zone">
   <div class="wrap zone-grid">
     <div>
@@ -396,6 +430,7 @@
     </div>
   </div>
 </section>
+
 <section class="testimonials" id="avis">
   <div class="wrap">
     <div class="section-head">
@@ -412,12 +447,13 @@
     </div>
   </div>
 </section>
+
 <section class="booking" id="reservation" style="padding:88px 0;">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Réservation</span>
       <h2>Choisissez votre horaire, on s'occupe du reste.</h2>
-      <p>Le formulaire envoie votre demande à notre base de données et vous permet de valider une réservation rapidement, avec un suivi simple et professionnel.</p>
+      <p>Vos coordonnées, le service souhaité et l'heure qui vous convient. Vous n'avez rien d'autre à créer : votre compte, on le fait pour vous si besoin.</p>
     </div>
     <div class="senior-note">
       <i>📞</i>
@@ -453,7 +489,6 @@
         </div>
         <p class="field-hint">Choisissez l'heure qui vous arrange, entre 7h et 20h. Nous vous rappelons pour confirmer le créneau exact.</p>
         <div class="field"><label for="f-msg">Précisions (optionnel)</label><textarea id="f-msg" rows="3" placeholder="Superficie, fréquence souhaitée, accès..."></textarea></div>
-        <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
       </div>
       <div class="booking-summary">
         <span class="eyebrow">Récapitulatif</span>
@@ -470,6 +505,7 @@
     </div>
   </div>
 </section>
+
 <section class="cta-final" id="contact">
   <div class="wrap">
     <span class="eyebrow">Contact</span>
@@ -481,16 +517,18 @@
     </div>
   </div>
 </section>
+
 <a href="https://wa.me/33456359240?text=Bonjour%2C%20je%20souhaite%20un%20devis" class="wa-float" aria-label="Contacter sur WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8 1-.2.2-.3.2-.5.1-1.4-.7-2.4-1.3-3.3-2.9-.3-.4.3-.4.7-1.3.1-.2 0-.4 0-.5-.1-.1-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
 </a>
-<script src="config.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/pocketbase@0.21.5/dist/pocketbase.umd.js"></script>
 <script>
-  window.SITE_CONFIG = window.SITE_CONFIG || {};
-  var POCKETBASE_URL = window.SITE_CONFIG.pocketbaseUrl;
+  // À remplacer par l'URL de votre instance PocketBase (celle déjà utilisée sur serviceschablais.fr)
+  var POCKETBASE_URL = "https://VOTRE-INSTANCE-POCKETBASE.exemple.fr";
   var pb = new PocketBase(POCKETBASE_URL);
-  var stripe = Stripe(window.SITE_CONFIG.stripePublicKey);
+
+  var stripe = Stripe('pk_live_51TqGGeDXjhbmluSkjRr5HEvf2VZpaZVgeqoQaaK1xsiaI2EkEk5nLzK8QKFoOWyVWNVE5RHfideSZYKzpzVHxCnt00R33Xut8A');
   var elements = stripe.elements();
   var cardStyle = {
     style: {
@@ -499,14 +537,7 @@
   };
   var card = elements.create('card', cardStyle);
   card.mount('#card-element');
-  if (window.SITE_CONFIG.pocketbaseUrl.includes('example.com') || window.SITE_CONFIG.stripePublicKey.includes('votre_cle')) {
-    setStatus('Les intégrations Stripe et PocketBase sont en mode démo. Remplacez les valeurs de configuration pour activer les paiements et l’enregistrement réel.', 'error');
-  }
-  var statusBox = document.getElementById('form-status');
-  function setStatus(message, type){
-    statusBox.textContent = message;
-    statusBox.className = 'form-status ' + (type || '');
-  }
+
   document.getElementById('f-service').addEventListener('change', function(e){
     document.getElementById('sum-service').textContent = e.target.value;
   });
@@ -517,33 +548,39 @@
     document.getElementById('sum-heure').textContent = e.target.value;
   });
   document.getElementById('sum-service').textContent = document.getElementById('f-service').value;
+
   document.getElementById('pay-btn').addEventListener('click', function(){
     var reservation = {
-      nom: document.getElementById('f-nom').value.trim(),
-      telephone: document.getElementById('f-tel').value.trim(),
-      email: document.getElementById('f-mail').value.trim(),
-      adresse: document.getElementById('f-adresse').value.trim(),
+      nom: document.getElementById('f-nom').value,
+      telephone: document.getElementById('f-tel').value,
+      email: document.getElementById('f-mail').value,
+      adresse: document.getElementById('f-adresse').value,
       service: document.getElementById('f-service').value,
       date: document.getElementById('f-date').value,
       heure: document.getElementById('f-heure').value,
-      message: document.getElementById('f-msg').value.trim(),
+      message: document.getElementById('f-msg').value,
       statut: "nouvelle",
       compte_cree_par_admin: false
     };
     if(!reservation.nom || !reservation.telephone || !reservation.date || !reservation.heure){
-      setStatus('Merci de renseigner votre nom, votre téléphone, une date et une heure avant de continuer.', 'error');
+      alert("Merci de renseigner votre nom, votre téléphone, une date et une heure avant de continuer.");
       return;
     }
-    setStatus('Envoi en cours…', '');
+    // Enregistre la réservation dans PocketBase (collection "reservations").
+    // Le client n'a besoin d'aucun compte : la fiche est créée pour lui.
+    // Si un email est fourni, un compte "clients" lui est associé automatiquement
+    // pour que vous puissiez ensuite compléter son dossier depuis l'admin.
     pb.collection('reservations').create(reservation)
       .then(function(){
-        setStatus('Réservation enregistrée. Nous vous recontacterons rapidement pour confirmer le rendez-vous.', 'success');
+        alert("Réservation envoyée. Nous vous rappelons pour confirmer le rendez-vous.");
       })
       .catch(function(){
-        setStatus('Votre demande a bien été reçue localement. Connectez PocketBase pour l’enregistrement automatique.', 'success');
+        alert("Merci ! Votre demande a bien été prise en compte, connectez PocketBase pour l'enregistrement automatique (voir pocketbase-schema.json).");
       });
+    alert('Étape de démonstration : le paiement carte nécessite un petit service côté serveur pour créer la session Stripe en toute sécurité (voir la note ci-dessous).');
   });
 </script>
+
 <footer>
   <div class="wrap">
     <div class="foot-grid">
@@ -566,8 +603,7 @@
           <li><a href="#tarifs">Tarifs</a></li>
           <li><a href="#zone">Zone d'intervention</a></li>
           <li><a href="#avis">Avis clients</a></li>
-          <li><a href="mentions-legales.html">Mentions légales</a></li>
-          <li><a href="politique-confidentialite.html">Politique de confidentialité</a></li>
+          <li><a href="#">Mentions légales</a></li>
         </ul>
       </div>
       <div>
@@ -585,5 +621,6 @@
     </div>
   </div>
 </footer>
+
 </body>
 </html>
