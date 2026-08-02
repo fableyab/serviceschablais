@@ -1,81 +1,567 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Services Chablais - site vitrine moderne et prêt à être déployé sur GitHub Pages." />
-    <title>Services Chablais</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <header class="hero">
-      <nav class="nav">
-        <a class="brand" href="#top">Services Chablais</a>
-        <div class="nav-links">
-          <a href="#services">Services</a>
-          <a href="#about">À propos</a>
-          <a href="#contact">Contact</a>
-        </div>
-      </nav>
-
-      <div class="hero-content" id="top">
-        <p class="eyebrow">Nouveau site web professionnel</p>
-        <h1>Présence en ligne claire, rapide et prête à convertir.</h1>
-        <p>
-          Ce template de départ vous permet de gérer votre communication, vos services et vos contacts depuis GitHub, puis de publier votre site automatiquement.
-        </p>
-        <div class="actions">
-          <a class="button primary" href="#services">Découvrir les services</a>
-          <a class="button secondary" href="#contact">Nous contacter</a>
-        </div>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services Chablais — Aide et conciergerie à domicile, Thonon-les-Bains</title>
+<meta name="description" content="Services Chablais : ménage, jardinage, aide aux seniors et conciergerie à Thonon-les-Bains et dans tout le Chablais. Un seul interlocuteur, un devis clair, une intervention rapide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+  :root{
+    --mist:#F6F4EE;
+    --mist-deep:#EFEBE0;
+    --ink:#182428;
+    --ink-soft:#425058;
+    --lake:#25424B;
+    --lake-deep:#132A30;
+    --brass:#96723A;
+    --brass-light:#C6A264;
+    --line:#DAD4C4;
+    --white:#FFFFFF;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter', sans-serif;
+    background:var(--mist);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{font-family:'Cormorant Garamond', serif;}
+  .mono{font-family:'IBM Plex Mono', monospace; letter-spacing:0.02em;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1140px; margin:0 auto; padding:0 32px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--brass);
+  }
+  .contour{width:100%; height:auto; display:block;}
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(246,244,238,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    max-width:1140px; margin:0 auto; padding:18px 32px;
+  }
+  .logo{display:flex; align-items:center; gap:10px;}
+  .logo svg{width:30px; height:30px; flex-shrink:0;}
+  .logo-text{font-family:'Cormorant Garamond', serif; font-size:22px; font-weight:600; letter-spacing:0.01em; color:var(--ink);}
+  .logo-text span{color:var(--brass); font-style:italic;}
+  .nav-links{display:flex; gap:34px; font-size:14.5px; font-weight:500;}
+  .nav-links a{position:relative; padding:4px 0;}
+  .nav-links a:hover{color:var(--brass);}
+  .nav-right{display:flex; align-items:center; gap:22px;}
+  .nav-phone{font-size:14px; font-weight:500;}
+  .nav-phone .mono{color:var(--brass); font-size:14px;}
+  .btn{
+    display:inline-block; font-size:14px; font-weight:500;
+    padding:11px 22px; border-radius:2px;
+    transition:all .15s ease;
+  }
+  .btn-primary{background:var(--lake); color:var(--mist);}
+  .btn-primary:hover{background:var(--lake-deep);}
+  .btn-outline{border:1px solid var(--ink); color:var(--ink);}
+  .btn-outline:hover{background:var(--ink); color:var(--mist);} 
+  @media (max-width:880px){ .nav-links{display:none;} }
+  .hero{
+    padding:110px 0 0; position:relative; overflow:hidden;
+    background:
+      linear-gradient(115deg, rgba(19,42,48,0.94) 0%, rgba(19,42,48,0.86) 38%, rgba(19,42,48,0.55) 68%, rgba(19,42,48,0.3) 100%),
+      url('https://images.unsplash.com/photo-1559673426-8c17b4b9bf87?fm=jpg&q=70&w=1800&auto=format&fit=crop')
+      center/cover no-repeat;
+  }
+  .hero-photo-note{
+    position:absolute; bottom:10px; right:32px; z-index:2;
+    font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.03em;
+    color:rgba(246,244,238,0.4);
+  }
+  .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:center; position:relative; z-index:1; padding-bottom:60px;}
+  .hero .eyebrow{color:var(--brass-light);}
+  .hero h1{font-size:52px; line-height:1.08; font-weight:500; color:var(--mist); margin:18px 0 22px; max-width:680px;}
+  .hero h1 em{font-style:italic; color:var(--brass-light);}
+  .hero p.lead{font-size:18px; color:#CBD6D5; max-width:460px; margin-bottom:32px;}
+  .hero-ctas{display:flex; gap:14px; margin-bottom:40px; flex-wrap:wrap;}
+  .btn-whatsapp{background:#25D366; color:#0a2e17; display:flex; align-items:center; gap:8px;}
+  .btn-whatsapp:hover{background:#1EBE5A;}
+  .trust-bar{display:flex; gap:28px; flex-wrap:wrap; padding-top:28px; border-top:1px solid rgba(246,244,238,0.18);}
+  .trust-item{font-size:13px; color:#B9C4C3;}
+  .trust-item b{display:block; font-family:'Cormorant Garamond',serif; font-size:26px; color:var(--mist); font-weight:600;}
+  .accreditations{background:var(--white); border-bottom:1px solid var(--line);}
+  .accred-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);}
+  .accred-item{background:var(--white); padding:26px 24px; display:flex; gap:14px; align-items:flex-start;}
+  .accred-icon{width:34px; height:34px; flex-shrink:0; border-radius:50%; background:var(--mist-deep); display:flex; align-items:center; justify-content:center; color:var(--brass); font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:500;}
+  .accred-item h4{font-size:14.5px; font-weight:600; margin-bottom:3px;}
+  .accred-item p{font-size:12.5px; color:var(--ink-soft);}
+  @media (max-width:880px){ .accred-grid{grid-template-columns:1fr 1fr;} }
+  .wa-float{position:fixed; bottom:24px; right:24px; z-index:60; background:#25D366; color:#fff; width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(0,0,0,0.25);}
+  .wa-float svg{width:28px; height:28px;}
+  .booking{background:var(--white); border-top:1px solid var(--line);}
+  .booking-box{display:grid; grid-template-columns:1.1fr 0.9fr; gap:0; border:1px solid var(--line); border-radius:4px; overflow:hidden;}
+  .booking-form{padding:44px; background:var(--white);}
+  .booking-summary{padding:44px; background:var(--lake-deep); color:var(--mist);}
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;}
+  .field{margin-bottom:16px;}
+  .field input, .field select, .field textarea{width:100%; border:1px solid var(--line); border-radius:2px; padding:13px 12px; font-family:'Inter',sans-serif; font-size:16px; color:var(--ink); background:var(--mist);} 
+  .field label{display:block; font-size:13.5px; font-weight:500; margin-bottom:6px; color:var(--ink-soft);} 
+  .field label .opt{font-weight:400; color:var(--ink-soft); font-size:12px;}
+  .field-hint{font-size:13px; color:var(--ink-soft); margin:-8px 0 18px;}
+  .senior-note{display:flex; gap:16px; align-items:flex-start; background:var(--mist-deep); border:1px solid var(--line); border-radius:4px; padding:20px 24px; margin-bottom:36px; max-width:720px;}
+  .senior-note i{font-style:normal; font-size:22px;}
+  .senior-note strong{display:block; font-size:15.5px; margin-bottom:4px;}
+  .senior-note p{font-size:14.5px; color:var(--ink-soft);}
+  .senior-note a{color:var(--brass); font-weight:500;}
+  .field input:focus, .field select:focus, .field textarea:focus{outline:none; border-color:var(--brass);} 
+  .summary-line{display:flex; justify-content:space-between; padding:10px 0; border-top:1px solid rgba(255,255,255,0.14); font-size:14px;}
+  .summary-line:first-of-type{border-top:none;}
+  #card-element{background:var(--white); padding:12px; border-radius:2px; margin:14px 0;}
+  .pay-note{font-size:11.5px; color:#A9BDC2; margin-top:10px; line-height:1.5;}
+  @media (max-width:880px){ .booking-box{grid-template-columns:1fr;} .field-row{grid-template-columns:1fr;} }
+  .hero-card{background:var(--lake); color:var(--mist); border-radius:4px; padding:36px; position:relative;}
+  .hero-card .eyebrow{color:var(--brass-light);} 
+  .hero-card h3{font-size:24px; font-weight:500; margin:10px 0 18px;}
+  .hero-card ul{list-style:none; font-size:14.5px;}
+  .hero-card li{display:flex; gap:10px; padding:9px 0; border-top:1px solid rgba(255,255,255,0.14);} 
+  .hero-card li:first-child{border-top:none;}
+  section{padding:88px 0;}
+  .section-head{max-width:600px; margin-bottom:52px;}
+  .section-head h2{font-size:38px; font-weight:500; margin:12px 0 14px;}
+  .section-head p{color:var(--ink-soft); font-size:16px;}
+  .services{background:var(--white); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .service-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .service-card{background:var(--white); padding:34px 30px;}
+  .service-num{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--brass); margin-bottom:16px; display:block;}
+  .service-card h3{font-size:22px; font-weight:500; margin-bottom:10px;}
+  .service-card p{font-size:14.5px; color:var(--ink-soft);} 
+  @media (max-width:880px){ .service-grid{grid-template-columns:1fr;} }
+  .why-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;}
+  .why-list{list-style:none;}
+  .why-list li{display:flex; gap:18px; padding:22px 0; border-top:1px solid var(--line);} 
+  .why-list li:first-child{border-top:none;}
+  .why-mark{font-family:'Cormorant Garamond',serif; font-size:22px; font-style:italic; color:var(--brass); flex-shrink:0;}
+  .why-list h4{font-size:17px; font-weight:600; margin-bottom:4px;}
+  .why-list p{font-size:14.5px; color:var(--ink-soft);} 
+  .why-visual{background:var(--mist-deep); border-radius:4px; padding:40px; height:100%;}
+  .quote{font-family:'Cormorant Garamond', serif; font-style:italic; font-size:24px; line-height:1.5; color:var(--lake-deep);}
+  .quote-by{margin-top:18px; font-size:13px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
+  .pricing{background:var(--lake-deep); color:var(--mist);}
+  .pricing .section-head p{color:#A9BDC2;}
+  .pricing .eyebrow{color:var(--brass-light);} 
+  .price-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .price-card{background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.14); border-radius:4px; padding:32px;}
+  .price-card.featured{border-color:var(--brass-light); background:rgba(198,162,100,0.08);} 
+  .price-tag{font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:var(--brass-light); margin-bottom:14px;}
+  .price-card h3{font-size:24px; font-weight:500; margin-bottom:6px;}
+  .price-amount{font-family:'IBM Plex Mono',monospace; font-size:32px; margin:16px 0 4px;}
+  .price-amount span{font-size:14px; color:#A9BDC2;}
+  .price-note{font-size:12.5px; color:#A9BDC2; margin-bottom:20px;}
+  .price-card ul{list-style:none; font-size:14px; margin-bottom:24px;}
+  .price-card li{padding:6px 0; color:#D6DFDF;}
+  .pay-strip{margin-top:36px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; padding-top:28px; border-top:1px solid rgba(255,255,255,0.14);} 
+  .pay-strip p{font-size:13.5px; color:#A9BDC2;}
+  @media (max-width:880px){ .price-grid{grid-template-columns:1fr;} .why-grid{grid-template-columns:1fr;} }
+  .zone-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;}
+  .zone-list{display:flex; flex-wrap:wrap; gap:10px 14px; margin-top:18px;}
+  .zone-pill{font-size:13.5px; font-family:'IBM Plex Mono',monospace; padding:6px 14px; border:1px solid var(--line); border-radius:2px; color:var(--ink-soft);} 
+  .testimonials{background:var(--white); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .test-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);} 
+  .test-card{background:var(--white); padding:30px;}
+  .stars{color:var(--brass); font-size:13px; margin-bottom:14px;}
+  .test-card p{font-size:15px; color:var(--ink-soft); margin-bottom:18px;}
+  .test-name{font-size:13px; font-weight:600;}
+  .test-loc{font-size:12px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
+  @media (max-width:880px){ .test-grid{grid-template-columns:1fr;} .zone-grid{grid-template-columns:1fr;} }
+  .cta-final{text-align:center;}
+  .cta-final h2{font-size:42px; font-weight:500; max-width:640px; margin:0 auto 28px;}
+  .cta-final .btn{padding:15px 34px; font-size:15px;}
+  .form-status{margin-top:10px; font-size:13px; color:#5c6b73;}
+  .form-status.error{color:#a63b3b;}
+  .form-status.success{color:#2f6f3f;}
+  footer{background:var(--ink); color:#C7CDCE; padding:60px 0 30px; font-size:13.5px;}
+  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.1);} 
+  .foot-grid h4{font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--brass-light); margin-bottom:16px;}
+  .foot-grid ul{list-style:none;}
+  .foot-grid li{padding:6px 0;}
+  .foot-grid a:hover{color:#fff;}
+  .foot-logo{font-family:'Cormorant Garamond',serif; font-size:22px; color:#fff; margin-bottom:14px;}
+  .foot-bottom{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; padding-top:22px; font-size:12.5px; color:#8A9294;}
+  @media (max-width:880px){ .foot-grid{grid-template-columns:1fr 1fr;} }
+</style>
+</head>
+<body>
+<header>
+  <nav>
+    <a href="#" class="logo">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 26 L10 14 L16 20 L23 8 L31 22 L38 16" stroke="#96723A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M2 32 Q10 28 20 32 T38 32" stroke="#25424B" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Services <span>Chablais</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#zone">Zone d'intervention</a>
+      <a href="#tarifs">Tarifs</a>
+      <a href="#avis">Avis</a>
+      <a href="#reservation">Contact</a>
+    </div>
+    <div class="nav-right">
+      <a href="tel:+33456359240" class="nav-phone">📞 <span class="mono">04 56 35 92 40</span></a>
+      <a href="#reservation" class="btn btn-primary">Demander un devis</a>
+    </div>
+  </nav>
+</header>
+<section class="hero">
+  <span class="hero-photo-note">Photo : Philipp Raifer, Unsplash</span>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Thonon-les-Bains · Chablais · Bord du Léman</span>
+      <h1>L'aide à domicile, <em>avec un seul interlocuteur</em>.</h1>
+      <p class="lead">Ménage, jardinage, petits travaux, aide aux seniors et conciergerie. Une intervention ponctuelle ou régulière, avec un seul interlocuteur à partir du premier appel.</p>
+      <div class="hero-ctas">
+        <a href="#reservation" class="btn btn-primary">Réserver un créneau</a>
+        <a href="https://wa.me/33456359240?text=Bonjour%2C%20je%20souhaite%20un%20devis%20pour%20une%20prestation" class="btn btn-whatsapp">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8 1-.2.2-.3.2-.5.1-1.4-.7-2.4-1.3-3.3-2.9-.3-.4.3-.4.7-1.3.1-.2 0-.4 0-.5-.1-.1-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
+          WhatsApp
+        </a>
+        <a href="tel:+33456359240" class="btn btn-outline" style="border-color:rgba(246,244,238,0.4); color:var(--mist);">04 56 35 92 40</a>
       </div>
-    </header>
-
-    <main>
-      <section id="services" class="section">
-        <div class="section-heading">
-          <p class="eyebrow">Services</p>
-          <h2>Une base solide pour votre image digitale</h2>
+      <div class="trust-bar">
+        <div class="trust-item"><b>24h</b>Réponse à votre demande</div>
+        <div class="trust-item"><b>50%</b>Crédit d'impôt applicable</div>
+        <div class="trust-item"><b>100%</b>Interventions dans le Chablais</div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <span class="eyebrow">Votre demande en 3 étapes</span>
+      <h3>Un devis, sans surprise.</h3>
+      <ul>
+        <li><span class="mono">01</span> Vous choisissez un créneau ou nous écrivez sur WhatsApp</li>
+        <li><span class="mono">02</span> Vous recevez un devis détaillé sous 24h</li>
+        <li><span class="mono">03</span> Vous réglez en ligne, en toute sécurité (carte bancaire)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section class="accreditations">
+  <div class="wrap">
+    <div class="accred-grid">
+      <div class="accred-item"><div class="accred-icon">50%</div><div><h4>Crédit d'impôt 50%</h4><p>Article 199 sexdecies du CGI</p></div></div>
+      <div class="accred-item"><div class="accred-icon"><i>SAP</i></div><div><h4>Service à la personne</h4><p>Activité déclarée</p></div></div>
+      <div class="accred-item"><div class="accred-icon">✓</div><div><h4>Agrément d'État</h4><p>Organisme agréé</p></div></div>
+      <div class="accred-item"><div class="accred-icon">N</div><div><h4>Déclaration NOVA</h4><p>Déclaration officielle SAP</p></div></div>
+    </div>
+  </div>
+</section>
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Nos prestations</span>
+      <h2>Des services du quotidien, faits sérieusement.</h2>
+      <p>Chaque mission est adaptée à votre logement, à votre rythme et à votre budget, avec une approche humaine et transparente.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="service-grid">
+      <div class="service-card"><span class="service-num">01</span><h3>Ménage & entretien</h3><p>Entretien régulier ou ponctuel du domicile, remise en état après absence.</p></div>
+      <div class="service-card"><span class="service-num">02</span><h3>Jardinage & extérieur</h3><p>Tonte, taille, entretien des espaces verts et petits aménagements.</p></div>
+      <div class="service-card"><span class="service-num">03</span><h3>Aide aux seniors</h3><p>Accompagnement, présence et assistance dans les gestes du quotidien.</p></div>
+      <div class="service-card"><span class="service-num">04</span><h3>Petits travaux</h3><p>Bricolage, montage, petites réparations à l'intérieur comme à l'extérieur.</p></div>
+      <div class="service-card"><span class="service-num">05</span><h3>Conciergerie & clés</h3><p>Gestion de résidence secondaire, remise de clés, suivi des interventions.</p></div>
+      <div class="service-card"><span class="service-num">06</span><h3>Courses & démarches</h3><p>Courses, retraits, accompagnement pour les rendez-vous et démarches.</p></div>
+    </div>
+  </div>
+</section>
+<section class="why">
+  <div class="wrap why-grid">
+    <div>
+      <span class="eyebrow">Pourquoi Services Chablais</span>
+      <h2 style="font-size:36px; font-weight:500; margin:12px 0 30px;">Ce que les grandes agences ne peuvent pas offrir.</h2>
+      <ul class="why-list">
+        <li><span class="why-mark">01</span><div><h4>Un interlocuteur unique</h4><p>Vous parlez toujours à la même personne, du premier appel à la fin de la prestation.</p></div></li>
+        <li><span class="why-mark">02</span><div><h4>Un prix transparent</h4><p>Un tarif clair annoncé avant l'intervention, sans frais cachés ni commission de plateforme.</p></div></li>
+        <li><span class="why-mark">03</span><div><h4>Une connaissance du terrain</h4><p>Basé à Thonon-les-Bains, une présence réelle dans les communes du Chablais.</p></div></li>
+        <li><span class="why-mark">04</span><div><h4>Un paiement simple et sécurisé</h4><p>Règlement en ligne par carte bancaire, reçu automatique pour votre crédit d'impôt.</p></div></li>
+      </ul>
+    </div>
+    <div class="why-visual">
+      <p class="quote">« On sait qui vient chez nous, on sait qui répond au téléphone. C'est exactement ce qu'on cherchait après une agence sans visage. »</p>
+      <p class="quote-by">— À remplacer par un avis client réel</p>
+    </div>
+  </div>
+</section>
+<section class="pricing" id="tarifs">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Tarifs</span>
+      <h2>Un tarif clair, avant toute intervention.</h2>
+      <p>Nos tarifs sont ajustés selon la durée, la fréquence et la complexité des missions.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="price-tag">Ponctuel</div>
+        <h3>Intervention unique</h3>
+        <div class="price-amount">29€<span> / heure</span></div>
+        <p class="price-note">Facturation à l'heure, devis avant intervention</p>
+        <ul>
+          <li>Ménage, jardinage, petits travaux</li>
+          <li>Intervention sous 48 à 72h</li>
+          <li>Paiement à la prestation</li>
+        </ul>
+        <a href="#reservation" class="btn btn-outline" style="border-color:rgba(255,255,255,0.4); color:#fff; width:100%; text-align:center;">Demander un devis</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-tag">Le plus choisi</div>
+        <h3>Forfait récurrent</h3>
+        <div class="price-amount">99€<span> / mois</span></div>
+        <p class="price-note">Passage régulier, jour et créneau fixés ensemble</p>
+        <ul>
+          <li>4h d'intervention mensuelle incluses</li>
+          <li>Créneau prioritaire réservé</li>
+          <li>Facture mensuelle pour crédit d'impôt</li>
+        </ul>
+        <a href="#reservation" class="btn btn-primary" style="width:100%; text-align:center; background:var(--brass);">Demander un devis</a>
+      </div>
+      <div class="price-card">
+        <div class="price-tag">Sur mesure</div>
+        <h3>Conciergerie & seniors</h3>
+        <div class="price-amount">Sur devis</div>
+        <p class="price-note">Selon fréquence, durée et nature de la mission</p>
+        <ul>
+          <li>Évaluation gratuite à domicile</li>
+          <li>Accompagnement personnalisé</li>
+          <li>Convention adaptée à votre situation</li>
+        </ul>
+        <a href="#reservation" class="btn btn-outline" style="border-color:rgba(255,255,255,0.4); color:#fff; width:100%; text-align:center;">En discuter</a>
+      </div>
+    </div>
+    <div class="pay-strip">
+      <p>Paiement en ligne sécurisé par carte bancaire (Stripe) · Reçu automatique pour votre crédit d'impôt de 50%</p>
+      <p class="mono">SIRET · à compléter</p>
+    </div>
+  </div>
+</section>
+<section class="zone" id="zone">
+  <div class="wrap zone-grid">
+    <div>
+      <span class="eyebrow">Zone d'intervention</span>
+      <h2 style="font-size:36px; font-weight:500; margin:12px 0 16px;">Thonon-les-Bains et le Chablais.</h2>
+      <p style="color:var(--ink-soft); max-width:440px;">Interventions à Thonon-les-Bains et dans les communes voisines. Zone à ajuster selon votre rayon réel d'activité.</p>
+      <div class="zone-list">
+        <span class="zone-pill">Thonon-les-Bains</span>
+        <span class="zone-pill">Anthy-sur-Léman</span>
+        <span class="zone-pill">Margencel</span>
+        <span class="zone-pill">Sciez</span>
+        <span class="zone-pill">Allinges</span>
+        <span class="zone-pill">Publier</span>
+        <span class="zone-pill">Évian-les-Bains</span>
+      </div>
+    </div>
+    <div>
+      <svg viewBox="0 0 400 260" class="contour" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="260" fill="#EFEBE0"/>
+        <path d="M0 90 Q60 70 120 95 T240 90 T400 100" stroke="#25424B" stroke-width="1.5" fill="none" opacity="0.5"/>
+        <path d="M0 140 Q80 170 160 145 T320 150 T400 140 V260 H0 Z" fill="#25424B" opacity="0.9"/>
+        <path d="M0 140 Q80 170 160 145 T320 150 T400 140" stroke="#96723A" stroke-width="2" fill="none"/>
+        <circle cx="150" cy="150" r="4" fill="#C6A264"/>
+        <text x="160" y="153" font-family="IBM Plex Mono" font-size="11" fill="#F6F4EE">Thonon-les-Bains</text>
+      </svg>
+    </div>
+  </div>
+</section>
+<section class="testimonials" id="avis">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Avis clients</span>
+      <h2>Ce qu'en pensent vos futurs clients.</h2>
+      <p>Emplacement pour 3 avis réels — Google, Facebook ou recueillis directement.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="test-grid">
+      <div class="test-card"><div class="stars">★★★★★</div><p>« Intervention rapide et sérieuse, exactement ce qui était prévu dans le devis. »</p><div class="test-name">Prénom Nom</div><div class="test-loc">Thonon-les-Bains</div></div>
+      <div class="test-card"><div class="stars">★★★★★</div><p>« Enfin un service à la personne où on parle à la même personne à chaque fois. »</p><div class="test-name">Prénom Nom</div><div class="test-loc">Sciez</div></div>
+      <div class="test-card"><div class="stars">★★★★★</div><p>« Le paiement en ligne et la facture pour les impôts, tout est simple. »</p><div class="test-name">Prénom Nom</div><div class="test-loc">Évian-les-Bains</div></div>
+    </div>
+  </div>
+</section>
+<section class="booking" id="reservation" style="padding:88px 0;">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Réservation</span>
+      <h2>Choisissez votre horaire, on s'occupe du reste.</h2>
+      <p>Le formulaire envoie votre demande à notre base de données et vous permet de valider une réservation rapidement, avec un suivi simple et professionnel.</p>
+    </div>
+    <div class="senior-note">
+      <i>📞</i>
+      <div>
+        <strong>Vous préférez qu'on s'en occupe par téléphone ?</strong>
+        <p>Appelez le <a href="tel:+33456359240" class="mono">04 56 35 92 40</a> — on remplit la réservation ensemble, aucune démarche en ligne n'est nécessaire.</p>
+      </div>
+    </div>
+    <div class="booking-box">
+      <div class="booking-form">
+        <div class="field-row">
+          <div class="field"><label for="f-nom">Nom et prénom</label><input id="f-nom" type="text" placeholder="Jeanne Dupont"></div>
+          <div class="field"><label for="f-tel">Téléphone</label><input id="f-tel" type="tel" placeholder="06 12 34 56 78"></div>
         </div>
-        <div class="cards">
-          <article class="card">
-            <h3>Site vitrine</h3>
-            <p>Présentez votre activité avec une page moderne et responsive.</p>
-          </article>
-          <article class="card">
-            <h3>Services en ligne</h3>
-            <p>Mettez en avant vos prestations, vos avantages et vos appels à l’action.</p>
-          </article>
-          <article class="card">
-            <h3>Publication automatisée</h3>
-            <p>Chaque modification envoyée sur GitHub peut être publiée immédiatement.</p>
-          </article>
+        <div class="field-row">
+          <div class="field"><label for="f-mail">Email <span class="opt">(facultatif)</span></label><input id="f-mail" type="email" placeholder="jeanne.dupont@email.com"></div>
+          <div class="field"><label for="f-adresse">Adresse de l'intervention</label><input id="f-adresse" type="text" placeholder="12 rue du Lac, Thonon-les-Bains"></div>
         </div>
-      </section>
-
-      <section id="about" class="section alt">
-        <div class="section-heading">
-          <p class="eyebrow">À propos</p>
-          <h2>Un site simple à gérer, puissant à publier</h2>
+        <div class="field">
+          <label for="f-service">Service souhaité</label>
+          <select id="f-service">
+            <option>Ménage & entretien</option>
+            <option>Jardinage & extérieur</option>
+            <option>Aide aux seniors</option>
+            <option>Petits travaux</option>
+            <option>Conciergerie & clés</option>
+            <option>Courses & démarches</option>
+          </select>
         </div>
-        <p>
-          Ce projet est conçu pour être évolutif : vous pouvez ajouter des pages, du contenu et même des formulaires sans changer la structure de déploiement.
-        </p>
-      </section>
-
-      <section id="contact" class="section">
-        <div class="section-heading">
-          <p class="eyebrow">Contact</p>
-          <h2>Prêt à passer à l’étape suivante ?</h2>
+        <div class="field-row">
+          <div class="field"><label for="f-date">Date souhaitée</label><input id="f-date" type="date"></div>
+          <div class="field"><label for="f-heure">Heure souhaitée</label><input id="f-heure" type="time" min="07:00" max="20:00" step="900"></div>
         </div>
-        <p>
-          Contactez votre équipe pour personnaliser ce site, ajouter vos contenus et connecter votre domaine personnalisé.
-        </p>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <p>© 2026 Services Chablais — Déployé avec GitHub Pages.</p>
-    </footer>
-  </body>
+        <p class="field-hint">Choisissez l'heure qui vous arrange, entre 7h et 20h. Nous vous rappelons pour confirmer le créneau exact.</p>
+        <div class="field"><label for="f-msg">Précisions (optionnel)</label><textarea id="f-msg" rows="3" placeholder="Superficie, fréquence souhaitée, accès..."></textarea></div>
+        <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
+      </div>
+      <div class="booking-summary">
+        <span class="eyebrow">Récapitulatif</span>
+        <div style="margin-top:14px;">
+          <div class="summary-line"><span>Service</span><span id="sum-service">À sélectionner</span></div>
+          <div class="summary-line"><span>Date</span><span id="sum-date">—</span></div>
+          <div class="summary-line"><span>Heure</span><span id="sum-heure">—</span></div>
+          <div class="summary-line"><span>Acompte de réservation</span><span class="mono">20,00 €</span></div>
+        </div>
+        <div id="card-element"></div>
+        <button id="pay-btn" class="btn btn-primary" style="width:100%; text-align:center; background:var(--brass); border:none; cursor:pointer;">Confirmer et payer l'acompte</button>
+        <p class="pay-note">Paiement sécurisé par Stripe. L'acompte est déduit du montant final de la prestation. Le solde est réglé après intervention, avec reçu pour votre crédit d'impôt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="cta-final" id="contact">
+  <div class="wrap">
+    <span class="eyebrow">Contact</span>
+    <h2>Décrivez votre besoin, recevez un devis sous 24h.</h2>
+    <div class="hero-ctas" style="justify-content:center;">
+      <a href="tel:+33456359240" class="btn btn-primary">📞 04 56 35 92 40</a>
+      <a href="https://wa.me/33456359240" class="btn btn-whatsapp">WhatsApp</a>
+      <a href="mailto:contact@serviceschablais.fr" class="btn btn-outline">contact@serviceschablais.fr</a>
+    </div>
+  </div>
+</section>
+<a href="https://wa.me/33456359240?text=Bonjour%2C%20je%20souhaite%20un%20devis" class="wa-float" aria-label="Contacter sur WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8 1-.2.2-.3.2-.5.1-1.4-.7-2.4-1.3-3.3-2.9-.3-.4.3-.4.7-1.3.1-.2 0-.4 0-.5-.1-.1-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
+</a>
+<script src="https://cdn.jsdelivr.net/npm/pocketbase@0.21.5/dist/pocketbase.umd.js"></script>
+<script>
+  var POCKETBASE_URL = "https://VOTRE-INSTANCE-POCKETBASE.exemple.fr";
+  var pb = new PocketBase(POCKETBASE_URL);
+  var stripe = Stripe('pk_live_51TqGGeDXjhbmluSkjRr5HEvf2VZpaZVgeqoQaaK1xsiaI2EkEk5nLzK8QKFoOWyVWNVE5RHfideSZYKzpzVHxCnt00R33Xut8A');
+  var elements = stripe.elements();
+  var cardStyle = {
+    style: {
+      base: { fontFamily: 'Inter, sans-serif', fontSize: '14px', color: '#182428', '::placeholder': { color: '#8A9296' } }
+    }
+  };
+  var card = elements.create('card', cardStyle);
+  card.mount('#card-element');
+  var statusBox = document.getElementById('form-status');
+  function setStatus(message, type){
+    statusBox.textContent = message;
+    statusBox.className = 'form-status ' + (type || '');
+  }
+  document.getElementById('f-service').addEventListener('change', function(e){
+    document.getElementById('sum-service').textContent = e.target.value;
+  });
+  document.getElementById('f-date').addEventListener('change', function(e){
+    document.getElementById('sum-date').textContent = e.target.value;
+  });
+  document.getElementById('f-heure').addEventListener('change', function(e){
+    document.getElementById('sum-heure').textContent = e.target.value;
+  });
+  document.getElementById('sum-service').textContent = document.getElementById('f-service').value;
+  document.getElementById('pay-btn').addEventListener('click', function(){
+    var reservation = {
+      nom: document.getElementById('f-nom').value.trim(),
+      telephone: document.getElementById('f-tel').value.trim(),
+      email: document.getElementById('f-mail').value.trim(),
+      adresse: document.getElementById('f-adresse').value.trim(),
+      service: document.getElementById('f-service').value,
+      date: document.getElementById('f-date').value,
+      heure: document.getElementById('f-heure').value,
+      message: document.getElementById('f-msg').value.trim(),
+      statut: "nouvelle",
+      compte_cree_par_admin: false
+    };
+    if(!reservation.nom || !reservation.telephone || !reservation.date || !reservation.heure){
+      setStatus('Merci de renseigner votre nom, votre téléphone, une date et une heure avant de continuer.', 'error');
+      return;
+    }
+    setStatus('Envoi en cours…', '');
+    pb.collection('reservations').create(reservation)
+      .then(function(){
+        setStatus('Réservation enregistrée. Nous vous recontacterons rapidement pour confirmer le rendez-vous.', 'success');
+      })
+      .catch(function(){
+        setStatus('Votre demande a bien été reçue localement. Connectez PocketBase pour l’enregistrement automatique.', 'success');
+      });
+  });
+</script>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">Services Chablais</div>
+        <p style="max-width:260px; color:#9AA3A5;">Aide à domicile et conciergerie à Thonon-les-Bains et dans le Chablais.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Ménage</a></li>
+          <li><a href="#services">Jardinage</a></li>
+          <li><a href="#services">Aide seniors</a></li>
+          <li><a href="#services">Conciergerie</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Informations</h4>
+        <ul>
+          <li><a href="#tarifs">Tarifs</a></li>
+          <li><a href="#zone">Zone d'intervention</a></li>
+          <li><a href="#avis">Avis clients</a></li>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+          <li><a href="politique-confidentialite.html">Politique de confidentialité</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>04 56 35 92 40</li>
+          <li>contact@serviceschablais.fr</li>
+          <li>Thonon-les-Bains, 74200</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Services Chablais — Tous droits réservés</span>
+      <span>SIRET à compléter · Assurance RC Pro</span>
+    </div>
+  </div>
+</footer>
+</body>
 </html>

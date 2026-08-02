@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services Chablais — Espace admin (démo)</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --mist:#F6F4EE; --ink:#182428; --ink-soft:#425058; --lake:#25424B; --lake-deep:#132A30;
+    --brass:#96723A; --brass-light:#C6A264; --line:#DAD4C4; --white:#FFFFFF;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:'Inter',sans-serif; background:var(--mist); color:var(--ink);}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .app{display:grid; grid-template-columns:220px 1fr; min-height:100vh;}
+  .side{background:var(--lake-deep); color:var(--mist); padding:28px 20px;}
+  .side .brand{font-family:'Cormorant Garamond',serif; font-size:20px; margin-bottom:36px;}
+  .side .brand span{color:var(--brass-light); font-style:italic;}
+  .side nav a{display:block; padding:10px 12px; border-radius:3px; font-size:14px; color:#B9C4C3; margin-bottom:4px;}
+  .side nav a.active{background:rgba(255,255,255,0.08); color:var(--mist);}
+  .main{padding:36px 40px;}
+  .topbar{display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;}
+  .topbar h1{font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:600;}
+  .pill{font-size:12px; padding:5px 12px; border-radius:20px; background:#EAF3DE; color:#27500A;}
+  .kpis{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:32px;}
+  .kpi{background:var(--white); border:1px solid var(--line); border-radius:6px; padding:18px 20px;}
+  .kpi .label{font-size:12px; color:var(--ink-soft); margin-bottom:8px;}
+  .kpi .value{font-family:'IBM Plex Mono',monospace; font-size:24px;}
+  .grid2{display:grid; grid-template-columns:1.3fr 1fr; gap:24px;}
+  .card{background:var(--white); border:1px solid var(--line); border-radius:6px; padding:24px;}
+  .card h2{font-size:16px; font-weight:600; margin-bottom:16px;}
+  table{width:100%; border-collapse:collapse; font-size:13.5px;}
+  th{text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-soft); padding:8px 6px; border-bottom:1px solid var(--line);}
+  td{padding:10px 6px; border-bottom:1px solid var(--line);}
+  .status{font-size:11px; padding:3px 9px; border-radius:20px;}
+  .status.confirmed{background:#EAF3DE; color:#27500A;}
+  .status.pending{background:#FAEEDA; color:#633806;}
+  .status.reminded{background:#E6F1FB; color:#0C447C;}
+  .cal{display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-top:6px;}
+  .cal .dow{font-size:10.5px; text-align:center; color:var(--ink-soft); padding-bottom:4px;}
+  .cal .day{aspect-ratio:1; border-radius:4px; background:var(--mist); display:flex; align-items:center; justify-content:center; font-size:12.5px; color:var(--ink-soft); position:relative;}
+  .cal .day.has-res{background:var(--lake); color:var(--mist); font-weight:500;}
+  .cal .day.today{outline:1.5px solid var(--brass);}
+  .reminder-row{display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--line); font-size:13.5px;}
+  .reminder-row:last-child{border-bottom:none;}
+  .toggle{width:36px; height:20px; background:var(--lake); border-radius:20px; position:relative;}
+  .toggle::after{content:""; position:absolute; top:2px; right:2px; width:16px; height:16px; background:#fff; border-radius:50%;}
+  .note{background:#FAEEDA; border:1px solid #EF9F27; border-radius:6px; padding:16px 20px; font-size:13px; color:#633806; margin-top:28px; line-height:1.6;}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="side">
+    <div class="brand">Services <span>Chablais</span></div>
+    <nav>
+      <a class="active">Réservations</a>
+      <a>Calendrier</a>
+      <a>Clients</a>
+      <a>Rappels</a>
+      <a>Paramètres</a>
+    </nav>
+  </div>
+  <div class="main">
+    <div class="topbar">
+      <h1>Vos réservations</h1>
+      <span class="pill">Démo visuelle — données fictives</span>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><div class="label">Cette semaine</div><div class="value">7</div></div>
+      <div class="kpi"><div class="label">En attente de confirmation</div><div class="value">2</div></div>
+      <div class="kpi"><div class="label">Rappels envoyés (7j)</div><div class="value">5</div></div>
+      <div class="kpi"><div class="label">Acomptes encaissés</div><div class="value">140 €</div></div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h2>Prochaines interventions</h2>
+        <table>
+          <tr><th>Client</th><th>Service</th><th>Date</th><th>Heure</th><th>Statut</th></tr>
+          <tr><td>J. Dupont</td><td>Ménage</td><td>04/08</td><td class="mono">09h15</td><td><span class="status confirmed">Confirmé</span></td></tr>
+          <tr><td>M. Bertrand</td><td>Jardinage</td><td>04/08</td><td class="mono">14h30</td><td><span class="status reminded">Rappel envoyé</span></td></tr>
+          <tr><td>S. Grosjean</td><td>Aide senior</td><td>05/08</td><td class="mono">10h00</td><td><span class="status pending">À confirmer</span></td></tr>
+          <tr><td>P. Lambert</td><td>Petits travaux</td><td>06/08</td><td class="mono">16h45</td><td><span class="status confirmed">Confirmé</span></td></tr>
+          <tr><td>A. Roux</td><td>Conciergerie</td><td>07/08</td><td class="mono">11h00</td><td><span class="status confirmed">Confirmé</span></td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h2>Calendrier — août</h2>
+        <div class="cal">
+          <div class="dow">L</div><div class="dow">M</div><div class="dow">M</div><div class="dow">J</div><div class="dow">V</div><div class="dow">S</div><div class="dow">D</div>
+          <div class="day"></div><div class="day"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day today">4</div><div class="day">5</div>
+          <div class="day has-res">4</div>
+        </div>
+        <div style="margin-top:14px;">
+          <h2 style="margin-top:20px;">Rappels automatiques</h2>
+          <div class="reminder-row"><span>Rappel client — veille de l'intervention</span><div class="toggle"></div></div>
+          <div class="reminder-row"><span>Rappel client — 2h avant</span><div class="toggle"></div></div>
+          <div class="reminder-row"><span>Notification à vous-même chaque matin</span><div class="toggle"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:24px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <h2 style="margin:0;">Vos clients</h2>
+        <span class="pill" style="background:var(--brass-light); color:#412402;">+ Nouveau client</span>
+      </div>
+      <p style="font-size:13px; color:var(--ink-soft); margin-bottom:16px;">La création d'un compte n'est jamais demandée au client. Vous ajoutez ici ses coordonnées vous-même, dès le premier contact — ce bouton ouvre un formulaire nom / email / téléphone / adresse.</p>
+      <table>
+        <tr><th>Nom</th><th>Téléphone</th><th>Email</th><th>Adresse</th><th>Créé par</th></tr>
+        <tr><td>J. Dupont</td><td class="mono">06 XX XX XX XX</td><td>—</td><td>Rue du Lac, Thonon</td><td>Vous (accueil tél.)</td></tr>
+        <tr><td>S. Grosjean</td><td class="mono">06 XX XX XX XX</td><td>s.grosjean@mail.fr</td><td>Sciez</td><td>Formulaire du site</td></tr>
+      </table>
+    </div>
+    <div class="note" style="background:#E6F1FB; border-color:#85B7EB; color:#0C447C;">
+      Connexion à cet espace : votre email <span class="mono">contact@serviceschablais.fr</span> et le mot de passe que vous avez choisi ne sont jamais écrits dans un fichier de site — ils vivent uniquement dans l'écran de connexion sécurisé de PocketBase, à l'adresse <span class="mono">https://votre-instance-pocketbase/_/</span>. C'est là que vous créez le compte une seule fois ; ensuite vous vous reconnectez normalement, comme n'importe quel outil professionnel.
+    </div>
+    <div class="note">
+      Cet écran haut de page est une maquette pour visualiser le résultat. Il devient réel en connectant les deux collections décrites dans <span class="mono">pocketbase-schema.json</span> à votre PocketBase déjà en place pour serviceschablais.fr — vous avez alors, sans rien payer de plus, les réservations, les fiches clients et une connexion admin sécurisée.
+    </div>
+  </div>
+</div>
+</body>
+</html>

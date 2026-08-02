@@ -1,0 +1,62 @@
+{
+  "_lisez_moi": [
+    "Ce fichier décrit les deux collections à créer dans votre PocketBase existant",
+    "(le même que celui déjà utilisé pour serviceschablais.fr).",
+    "",
+    "IMPORTANT — À propos du compte admin :",
+    "Ne mettez jamais un mot de passe admin dans un fichier de site ou dans un chat.",
+    "Le compte admin, ce n'est pas quelque chose que je crée pour vous dans ce fichier :",
+    "c'est le compte superuser de VOTRE PocketBase, que vous seul créez, à l'adresse",
+    "https://VOTRE-INSTANCE-POCKETBASE/_/  (menu 'Créer le premier superuser').",
+    "Utilisez-y l'email contact@serviceschablais.fr et le mot de passe que vous avez choisi.",
+    "Vous verrez alors, dans une interface déjà sécurisée, toutes les réservations et tous les clients.",
+    "",
+    "INSTALLATION :",
+    "1. Ouvrez l'admin PocketBase > Collections > New collection, recréez les deux",
+    "   collections ci-dessous avec les mêmes noms de champs.",
+    "2. Réglez les règles d'accès (API rules) comme indiqué : la création est publique",
+    "   (un client peut réserver sans compte), la lecture est réservée à l'admin.",
+    "3. Remplacez POCKETBASE_URL dans serviceschablais-refonte.html par l'URL réelle."
+  ],
+  "collections": [
+    {
+      "name": "clients",
+      "type": "base",
+      "fields": [
+        { "name": "nom", "type": "text", "required": true },
+        { "name": "email", "type": "email", "required": false },
+        { "name": "telephone", "type": "text", "required": true },
+        { "name": "adresse", "type": "text", "required": false },
+        { "name": "cree_par_admin", "type": "bool", "required": false, "default": false },
+        { "name": "notes_internes", "type": "text", "required": false }
+      ],
+      "listRule": "@request.auth.id != \"\"",
+      "viewRule": "@request.auth.id != \"\"",
+      "createRule": "",
+      "updateRule": "@request.auth.id != \"\"",
+      "deleteRule": "@request.auth.id != \"\""
+    },
+    {
+      "name": "reservations",
+      "type": "base",
+      "fields": [
+        { "name": "client", "type": "relation", "collectionId": "clients", "required": false },
+        { "name": "nom", "type": "text", "required": true },
+        { "name": "telephone", "type": "text", "required": true },
+        { "name": "email", "type": "email", "required": false },
+        { "name": "adresse", "type": "text", "required": false },
+        { "name": "service", "type": "text", "required": true },
+        { "name": "date", "type": "date", "required": true },
+        { "name": "heure", "type": "text", "required": true },
+        { "name": "message", "type": "text", "required": false },
+        { "name": "statut", "type": "select", "values": ["nouvelle", "confirmee", "terminee", "annulee"], "default": "nouvelle" },
+        { "name": "rappel_envoye", "type": "bool", "default": false }
+      ],
+      "listRule": "@request.auth.id != \"\"",
+      "viewRule": "@request.auth.id != \"\"",
+      "createRule": "",
+      "updateRule": "@request.auth.id != \"\"",
+      "deleteRule": "@request.auth.id != \"\""
+    }
+  ]
+}
