@@ -469,9 +469,13 @@
 </a>
 <script src="https://cdn.jsdelivr.net/npm/pocketbase@0.21.5/dist/pocketbase.umd.js"></script>
 <script>
-  var POCKETBASE_URL = "https://VOTRE-INSTANCE-POCKETBASE.exemple.fr";
+  window.SITE_CONFIG = {
+    pocketbaseUrl: "https://votre-instance-pocketbase.example.com",
+    stripePublicKey: "pk_test_votre_cle_publique_stripe"
+  };
+  var POCKETBASE_URL = window.SITE_CONFIG.pocketbaseUrl;
   var pb = new PocketBase(POCKETBASE_URL);
-  var stripe = Stripe('pk_live_51TqGGeDXjhbmluSkjRr5HEvf2VZpaZVgeqoQaaK1xsiaI2EkEk5nLzK8QKFoOWyVWNVE5RHfideSZYKzpzVHxCnt00R33Xut8A');
+  var stripe = Stripe(window.SITE_CONFIG.stripePublicKey);
   var elements = stripe.elements();
   var cardStyle = {
     style: {
@@ -480,6 +484,9 @@
   };
   var card = elements.create('card', cardStyle);
   card.mount('#card-element');
+  if (window.SITE_CONFIG.pocketbaseUrl.includes('example.com') || window.SITE_CONFIG.stripePublicKey.includes('votre_cle')) {
+    setStatus('Les intégrations Stripe et PocketBase sont en mode démo. Remplacez les valeurs de configuration pour activer les paiements et l’enregistrement réel.', 'error');
+  }
   var statusBox = document.getElementById('form-status');
   function setStatus(message, type){
     statusBox.textContent = message;
