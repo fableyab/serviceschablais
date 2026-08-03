@@ -18,6 +18,7 @@
     "   (un client peut réserver sans compte), la lecture est réservée à l'admin.",
     "3. Remplacez POCKETBASE_URL dans serviceschablais-refonte.html par l'URL réelle."
   ],
+
   "collections": [
     {
       "name": "clients",
@@ -55,6 +56,23 @@
       "listRule": "@request.auth.id != \"\"",
       "viewRule": "@request.auth.id != \"\"",
       "createRule": "",
+      "updateRule": "@request.auth.id != \"\"",
+      "deleteRule": "@request.auth.id != \"\""
+    },
+    {
+      "name": "parametres",
+      "type": "base",
+      "fields": [
+        { "name": "telephone", "type": "text", "required": false },
+        { "name": "whatsapp", "type": "text", "required": false },
+        { "name": "email", "type": "text", "required": false },
+        { "name": "rappel_veille", "type": "bool", "default": true },
+        { "name": "rappel_2h", "type": "bool", "default": false },
+        { "name": "notif_matin", "type": "bool", "default": true }
+      ],
+      "listRule": "@request.auth.id != \"\"",
+      "viewRule": "@request.auth.id != \"\"",
+      "createRule": "@request.auth.id != \"\"",
       "updateRule": "@request.auth.id != \"\"",
       "deleteRule": "@request.auth.id != \"\""
     }
