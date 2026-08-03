@@ -173,12 +173,19 @@
 
   /* SERVICES */
   .services{background:var(--white); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
-  .service-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
-  .service-card{background:var(--white); padding:34px 30px;}
-  .service-num{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--brass); margin-bottom:16px; display:block;}
-  .service-card h3{font-size:22px; font-weight:500; margin-bottom:10px;}
-  .service-card p{font-size:14.5px; color:var(--ink-soft);}
-  @media (max-width:880px){ .service-grid{grid-template-columns:1fr;} }
+  .service-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .service-card{background:var(--white); padding:0 0 24px; display:flex; flex-direction:column;}
+  .service-img{width:100%; height:130px; object-fit:cover; margin-bottom:18px;}
+  .service-card .service-body{padding:0 24px; display:flex; flex-direction:column; flex:1;}
+  .service-num{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--brass); margin-bottom:14px; display:block;}
+  .service-card h3{font-size:19px; font-weight:500; margin-bottom:10px;}
+  .service-card ul{list-style:none; margin-bottom:16px; flex:1;}
+  .service-card li{font-size:13px; color:var(--ink-soft); padding:4px 0 4px 14px; position:relative;}
+  .service-card li::before{content:"—"; position:absolute; left:0; color:var(--brass);}
+  .service-card a.more{font-size:13px; font-weight:600; color:var(--brass);}
+  .service-card a.more:hover{text-decoration:underline;}
+  @media (max-width:1000px){ .service-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:640px){ .service-grid{grid-template-columns:1fr;} }
 
   /* POURQUOI */
   .why-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;}
@@ -197,6 +204,18 @@
   .pricing .section-head p{color:#A9BDC2;}
   .pricing .eyebrow{color:var(--brass-light);}
   .price-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .credit-badge{
+    display:flex; align-items:center; gap:22px; background:rgba(198,162,100,0.1);
+    border:1px solid var(--brass-light); border-radius:6px; padding:22px 28px; margin-bottom:36px;
+  }
+  .credit-badge-num{
+    font-family:'IBM Plex Mono',monospace; font-size:34px; font-weight:500; color:var(--brass-light);
+    border:2px solid var(--brass-light); border-radius:50%; width:84px; height:84px;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .credit-badge strong{font-size:17px; display:block; margin-bottom:4px;}
+  .credit-badge p{font-size:13.5px; color:#A9BDC2;}
+  @media (max-width:640px){ .credit-badge{flex-direction:column; text-align:center;} }
   .price-card{background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.14); border-radius:4px; padding:32px;}
   .price-card.featured{border-color:var(--brass-light); background:rgba(198,162,100,0.08);}
   .price-tag{font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:var(--brass-light); margin-bottom:14px;}
@@ -240,6 +259,42 @@
   .foot-logo{font-family:'Cormorant Garamond',serif; font-size:22px; color:#fff; margin-bottom:14px;}
   .foot-bottom{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; padding-top:22px; font-size:12.5px; color:#8A9294;}
   @media (max-width:880px){ .foot-grid{grid-template-columns:1fr 1fr;} }
+
+  /* MODAL (pop-up devis) */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(19,42,48,0.65); z-index:150;
+    display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-box{
+    background:var(--mist); border-radius:8px; max-width:460px; width:100%;
+    padding:36px; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.3);
+  }
+  .modal-close{position:absolute; top:14px; right:18px; font-size:20px; cursor:pointer; color:var(--ink-soft); background:none; border:none;}
+  .modal-box h3{font-size:24px; margin-bottom:12px;}
+  .modal-box p{font-size:14.5px; color:var(--ink-soft); margin-bottom:20px;}
+  .modal-box .btn{width:100%; text-align:center;}
+
+  /* COOKIES */
+  .cookie-banner{
+    position:fixed; left:24px; bottom:24px; z-index:200; max-width:420px;
+    background:var(--white); border:1px solid var(--line); border-radius:8px;
+    box-shadow:0 12px 32px rgba(19,42,48,0.18); padding:26px; display:none;
+  }
+  .cookie-banner.open{display:block;}
+  .cookie-banner h4{font-family:'Cormorant Garamond',serif; font-size:20px; margin-bottom:10px;}
+  .cookie-banner p{font-size:13px; color:var(--ink-soft); line-height:1.6; margin-bottom:16px;}
+  .cookie-banner a{color:var(--brass); text-decoration:underline;}
+  .cookie-actions{display:flex; gap:10px; flex-wrap:wrap;}
+  .cookie-actions button{
+    flex:1; min-width:110px; border:none; border-radius:3px; padding:10px 14px;
+    font-size:13px; font-weight:500; cursor:pointer; font-family:'Inter',sans-serif;
+  }
+  .cookie-accept{background:var(--lake); color:var(--mist);}
+  .cookie-accept:hover{background:var(--lake-deep);}
+  .cookie-refuse{background:var(--mist-deep); color:var(--ink);}
+  .cookie-customize{background:none; border:1px solid var(--line) !important; color:var(--ink);}
+  @media (max-width:520px){ .cookie-banner{left:12px; right:12px; max-width:none;} }
 </style>
 </head>
 <body>
@@ -273,10 +328,10 @@
     <div>
       <span class="eyebrow">Thonon-les-Bains · Chablais · Bord du Léman</span>
       <h1>L'aide à domicile, <em>avec un seul interlocuteur</em>.</h1>
-      <p class="lead">Ménage, jardinage, petits travaux, aide aux seniors et conciergerie. Un artisan indépendant, un devis clair, une intervention rapide — sans plateforme, sans intermédiaire.</p>
+      <p class="lead">Aide administrative, aide aux déplacements, sport et loisirs, aide relationnelle, jardinage, petits travaux et conciergerie. Un artisan indépendant, un devis clair, une intervention rapide — sans plateforme, sans intermédiaire.</p>
       <div class="hero-ctas">
         <a href="#reservation" class="btn btn-primary">Réserver un créneau</a>
-        <a href="https://wa.me/33456359240?text=Bonjour%2C%20je%20souhaite%20un%20devis%20pour%20une%20prestation" class="btn btn-whatsapp">
+        <a href="https://wa.me/33615767067?text=Bonjour%2C%20je%20souhaite%20un%20devis%20pour%20une%20prestation" class="btn btn-whatsapp">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8 1-.2.2-.3.2-.5.1-1.4-.7-2.4-1.3-3.3-2.9-.3-.4.3-.4.7-1.3.1-.2 0-.4 0-.5-.1-.1-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
           WhatsApp
         </a>
@@ -315,18 +370,76 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Nos prestations</span>
-      <h2>Des services du quotidien, faits sérieusement.</h2>
-      <p>À adapter avec la liste exacte et les intitulés de vos prestations actuelles.</p>
+      <h2>Huit métiers du quotidien, une seule personne de confiance.</h2>
+      <p>Chaque prestation est réalisée par le même intervenant, agréé service à la personne, avec 50% de crédit d'impôt applicable sur toutes nos activités.</p>
     </div>
   </div>
   <div class="wrap">
     <div class="service-grid">
-      <div class="service-card"><span class="service-num">01</span><h3>Ménage & entretien</h3><p>Entretien régulier ou ponctuel du domicile, remise en état après absence.</p></div>
-      <div class="service-card"><span class="service-num">02</span><h3>Jardinage & extérieur</h3><p>Tonte, taille, entretien des espaces verts et petits aménagements.</p></div>
-      <div class="service-card"><span class="service-num">03</span><h3>Aide aux seniors</h3><p>Accompagnement, présence et assistance dans les gestes du quotidien.</p></div>
-      <div class="service-card"><span class="service-num">04</span><h3>Petits travaux</h3><p>Bricolage, montage, petites réparations à l'intérieur comme à l'extérieur.</p></div>
-      <div class="service-card"><span class="service-num">05</span><h3>Conciergerie & clés</h3><p>Gestion de résidence secondaire, remise de clés, suivi des interventions.</p></div>
-      <div class="service-card"><span class="service-num">06</span><h3>Courses & démarches</h3><p>Courses, retraits, accompagnement pour les rendez-vous et démarches.</p></div>
+      <div class="service-card">
+        <img class="service-img" src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?fm=jpg&q=70&w=600&auto=format&fit=crop" alt="Aide administrative à domicile" loading="lazy">
+        <div class="service-body">
+          <span class="service-num">01</span><h3>Aide administrative</h3>
+          <ul><li>Démarches administratives</li><li>Rédaction de courriers</li><li>Prise de rendez-vous</li></ul>
+          <a class="more" href="services/aide-administrative.html">En savoir plus →</a>
+        </div>
+      </div>
+      <div class="service-card">
+        <img class="service-img" src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?fm=jpg&q=70&w=600&auto=format&fit=crop" alt="Aide aux déplacements et au lever" loading="lazy">
+        <div class="service-body">
+          <span class="service-num">02</span><h3>Aide aux déplacements</h3>
+          <ul><li>Aide au lever et au coucher</li><li>Transferts lit / fauteuil</li><li>Promenade à l'extérieur</li></ul>
+          <a class="more" href="services/aide-aux-deplacements.html">En savoir plus →</a>
+        </div>
+      </div>
+      <div class="service-card">
+        <img class="service-img" src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?fm=jpg&q=70&w=600&auto=format&fit=crop" alt="Sport et loisirs, sorties accompagnées" loading="lazy">
+        <div class="service-body">
+          <span class="service-num">03</span><h3>Sport et loisirs</h3>
+          <ul><li>Mise en place de sorties et activités</li><li>Accompagnement pour les vacances</li></ul>
+          <a class="more" href="services/sport-et-loisirs.html">En savoir plus →</a>
+        </div>
+      </div>
+      <div class="service-card">
+        <img class="service-img" src="https://images.unsplash.com/photo-1489824904134-891ab64532f1?fm=jpg&q=70&w=600&auto=format&fit=crop" alt="Aide relationnelle, discussion et compagnie" loading="lazy">
+        <div class="service-body">
+          <span class="service-num">04</span><h3>Aide relationnelle</h3>
+          <ul><li>Lecture, discussion</li><li>Lien avec les autres intervenants</li></ul>
+          <a class="more" href="services/aide-relationnelle.html">En savoir plus →</a>
+        </div>
+      </div>
+      <div class="service-card">
+        <img class="service-img" src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?fm=jpg&q=70&w=600&auto=format&fit=crop" alt="Jardinage et entretien extérieur" loading="lazy">
+        <div class="service-body">
+          <span class="service-num">05</span><h3>Jardinage & extérieur</h3>
+          <ul><li>Tonte et taille</li><li>Entretien des massifs</li><li>Petits aménagements extérieurs</li></ul>
+          <a class="more" href="services/jardinage.html">En savoir plus →</a>
+        </div>
+      </div>
+      <div class="service-card">
+        <img class="service-img" src="https://images.unsplash.com/photo-1581091870622-1c6f0e91ffc6?fm=jpg&q=70&w=600&auto=format&fit=crop" alt="Petits travaux et bricolage" loading="lazy">
+        <div class="service-body">
+          <span class="service-num">06</span><h3>Petits travaux</h3>
+          <ul><li>Bricolage et montage</li><li>Petites réparations</li><li>Interventions ponctuelles</li></ul>
+          <a class="more" href="services/petits-travaux.html">En savoir plus →</a>
+        </div>
+      </div>
+      <div class="service-card">
+        <img class="service-img" src="https://images.unsplash.com/photo-1558036117-15d82a90b9b1?fm=jpg&q=70&w=600&auto=format&fit=crop" alt="Conciergerie et gestion des clés" loading="lazy">
+        <div class="service-body">
+          <span class="service-num">07</span><h3>Conciergerie & clés</h3>
+          <ul><li>Gestion de résidence secondaire</li><li>Remise et suivi des clés</li><li>Suivi des interventions</li></ul>
+          <a class="more" href="services/conciergerie.html">En savoir plus →</a>
+        </div>
+      </div>
+      <div class="service-card">
+        <img class="service-img" src="https://images.unsplash.com/photo-1542838132-92c53300491e?fm=jpg&q=70&w=600&auto=format&fit=crop" alt="Courses et démarches accompagnées" loading="lazy">
+        <div class="service-body">
+          <span class="service-num">08</span><h3>Courses & démarches</h3>
+          <ul><li>Courses alimentaires</li><li>Retraits et livraisons</li><li>Accompagnement aux rendez-vous</li></ul>
+          <a class="more" href="services/courses-et-demarches.html">En savoir plus →</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -355,7 +468,14 @@
     <div class="section-head">
       <span class="eyebrow">Tarifs</span>
       <h2>Un tarif clair, avant toute intervention.</h2>
-      <p>Grille indicative — à remplacer par vos tarifs réels et vos libellés de prestations.</p>
+      <p>Trois formules simples, sans engagement caché, applicables à l'ensemble de nos huit prestations.</p>
+    </div>
+    <div class="credit-badge">
+      <div class="credit-badge-num">-50%</div>
+      <div>
+        <strong>Crédit d'impôt applicable sur toutes nos prestations</strong>
+        <p>Déduit directement de vos factures — article 199 sexdecies du Code général des impôts.</p>
+      </div>
     </div>
     <div class="price-grid">
       <div class="price-card">
@@ -364,7 +484,7 @@
         <div class="price-amount">29€<span> / heure</span></div>
         <p class="price-note">Facturation à l'heure, devis avant intervention</p>
         <ul>
-          <li>Ménage, jardinage, petits travaux</li>
+          <li>Jardinage, petits travaux, courses</li>
           <li>Intervention sous 48 à 72h</li>
           <li>Paiement à la prestation</li>
         </ul>
@@ -416,6 +536,11 @@
         <span class="zone-pill">Allinges</span>
         <span class="zone-pill">Publier</span>
         <span class="zone-pill">Évian-les-Bains</span>
+        <span class="zone-pill">Le Lyaud</span>
+        <span class="zone-pill">Orcier</span>
+        <span class="zone-pill">Armoy</span>
+        <span class="zone-pill">Perrignier</span>
+        <span class="zone-pill">Marin</span>
       </div>
     </div>
     <div>
@@ -475,9 +600,11 @@
         <div class="field">
           <label for="f-service">Service souhaité</label>
           <select id="f-service">
-            <option>Ménage & entretien</option>
+            <option>Aide administrative</option>
+            <option>Aide aux déplacements</option>
+            <option>Sport et loisirs</option>
+            <option>Aide relationnelle</option>
             <option>Jardinage & extérieur</option>
-            <option>Aide aux seniors</option>
             <option>Petits travaux</option>
             <option>Conciergerie & clés</option>
             <option>Courses & démarches</option>
@@ -512,13 +639,13 @@
     <h2>Décrivez votre besoin, recevez un devis sous 24h.</h2>
     <div class="hero-ctas" style="justify-content:center;">
       <a href="tel:+33456359240" class="btn btn-primary">📞 04 56 35 92 40</a>
-      <a href="https://wa.me/33456359240" class="btn btn-whatsapp">WhatsApp</a>
+      <a href="https://wa.me/33615767067" class="btn btn-whatsapp">WhatsApp</a>
       <a href="mailto:contact@serviceschablais.fr" class="btn btn-outline">contact@serviceschablais.fr</a>
     </div>
   </div>
 </section>
 
-<a href="https://wa.me/33456359240?text=Bonjour%2C%20je%20souhaite%20un%20devis" class="wa-float" aria-label="Contacter sur WhatsApp">
+<a href="https://wa.me/33615767067?text=Bonjour%2C%20je%20souhaite%20un%20devis" class="wa-float" aria-label="Contacter sur WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8 1-.2.2-.3.2-.5.1-1.4-.7-2.4-1.3-3.3-2.9-.3-.4.3-.4.7-1.3.1-.2 0-.4 0-.5-.1-.1-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
 </a>
 
@@ -591,10 +718,14 @@
       <div>
         <h4>Services</h4>
         <ul>
-          <li><a href="#services">Ménage</a></li>
-          <li><a href="#services">Jardinage</a></li>
-          <li><a href="#services">Aide seniors</a></li>
-          <li><a href="#services">Conciergerie</a></li>
+          <li><a href="services/aide-administrative.html">Aide administrative</a></li>
+          <li><a href="services/aide-aux-deplacements.html">Aide aux déplacements</a></li>
+          <li><a href="services/sport-et-loisirs.html">Sport et loisirs</a></li>
+          <li><a href="services/aide-relationnelle.html">Aide relationnelle</a></li>
+          <li><a href="services/jardinage.html">Jardinage</a></li>
+          <li><a href="services/petits-travaux.html">Petits travaux</a></li>
+          <li><a href="services/conciergerie.html">Conciergerie</a></li>
+          <li><a href="services/courses-et-demarches.html">Courses & démarches</a></li>
         </ul>
       </div>
       <div>
@@ -603,7 +734,8 @@
           <li><a href="#tarifs">Tarifs</a></li>
           <li><a href="#zone">Zone d'intervention</a></li>
           <li><a href="#avis">Avis clients</a></li>
-          <li><a href="#">Mentions légales</a></li>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+          <li><a href="politique-confidentialite.html">Politique de confidentialité</a></li>
         </ul>
       </div>
       <div>
@@ -621,6 +753,54 @@
     </div>
   </div>
 </footer>
+
+<div class="modal-overlay" id="quote-modal">
+  <div class="modal-box">
+    <button class="modal-close" id="quote-modal-close" aria-label="Fermer">&times;</button>
+    <span class="eyebrow">Offre de bienvenue</span>
+    <h3>Un devis gratuit sous 24h.</h3>
+    <p>Dites-nous simplement ce dont vous avez besoin — aide administrative, déplacements, jardinage, conciergerie... Nous revenons vers vous avec un tarif clair, sans engagement, et rappel du crédit d'impôt de 50% applicable.</p>
+    <a href="#reservation" class="btn btn-primary" id="quote-modal-cta">Demander mon devis gratuit</a>
+  </div>
+</div>
+
+<div class="cookie-banner" id="cookie-banner">
+  <h4>Salut, c'est nous, les cookies 🍪</h4>
+  <p>Services Chablais utilise des cookies pour mesurer l'audience du site et améliorer votre navigation. Vous pouvez changer d'avis à tout moment. <a href="politique-confidentialite.html">Politique de confidentialité</a></p>
+  <div class="cookie-actions">
+    <button class="cookie-refuse" id="cookie-refuse">Non merci</button>
+    <button class="cookie-customize" id="cookie-customize">Je choisis</button>
+    <button class="cookie-accept" id="cookie-accept">OK pour moi</button>
+  </div>
+</div>
+
+<script>
+  (function(){
+    var banner = document.getElementById('cookie-banner');
+    var choice = localStorage.getItem('sc_cookie_choice');
+    if(!choice){ banner.classList.add('open'); }
+    function setChoice(val){
+      localStorage.setItem('sc_cookie_choice', val);
+      banner.classList.remove('open');
+    }
+    document.getElementById('cookie-accept').addEventListener('click', function(){ setChoice('accepte'); });
+    document.getElementById('cookie-refuse').addEventListener('click', function(){ setChoice('refuse'); });
+    document.getElementById('cookie-customize').addEventListener('click', function(){ setChoice('personnalise'); });
+
+    var modal = document.getElementById('quote-modal');
+    var modalSeen = sessionStorage.getItem('sc_quote_modal_seen');
+    if(!modalSeen){
+      setTimeout(function(){ modal.classList.add('open'); }, 8000);
+    }
+    function closeModal(){
+      modal.classList.remove('open');
+      sessionStorage.setItem('sc_quote_modal_seen', '1');
+    }
+    document.getElementById('quote-modal-close').addEventListener('click', closeModal);
+    document.getElementById('quote-modal-cta').addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e){ if(e.target === modal){ closeModal(); } });
+  })();
+</script>
 
 </body>
 </html>
