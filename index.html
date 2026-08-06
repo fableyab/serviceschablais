@@ -600,6 +600,8 @@
         <div class="field">
           <label for="f-service">Service souhaité</label>
           <select id="f-service">
+            <option value="" disabled selected>Choisir un service</option>
+            <option>Ménage & entretien</option>
             <option>Aide administrative</option>
             <option>Aide aux déplacements</option>
             <option>Sport et loisirs</option>
@@ -617,17 +619,16 @@
         <p class="field-hint">Choisissez l'heure qui vous arrange, entre 7h et 20h. Nous vous rappelons pour confirmer le créneau exact.</p>
         <div class="field"><label for="f-msg">Précisions (optionnel)</label><textarea id="f-msg" rows="3" placeholder="Superficie, fréquence souhaitée, accès..."></textarea></div>
       </div>
-      <div class="booking-summary">
+      <div class="booking-summary" style="display:flex; flex-direction:column;">
         <span class="eyebrow">Récapitulatif</span>
         <div style="margin-top:14px;">
           <div class="summary-line"><span>Service</span><span id="sum-service">À sélectionner</span></div>
           <div class="summary-line"><span>Date</span><span id="sum-date">—</span></div>
           <div class="summary-line"><span>Heure</span><span id="sum-heure">—</span></div>
-          <div class="summary-line"><span>Acompte de réservation</span><span class="mono">20,00 €</span></div>
+          <div class="summary-line"><span>Confirmation</span><span class="mono" style="font-size:12px;">par téléphone</span></div>
         </div>
-        <div id="card-element"></div>
-        <button id="pay-btn" class="btn btn-primary" style="width:100%; text-align:center; background:var(--brass); border:none; cursor:pointer;">Confirmer et payer l'acompte</button>
-        <p class="pay-note">Paiement sécurisé par Stripe. L'acompte est déduit du montant final de la prestation. Le solde est réglé après intervention, avec reçu pour votre crédit d'impôt.</p>
+        <button id="pay-btn" class="btn btn-primary" style="width:100%; text-align:center; background:var(--brass); border:none; cursor:pointer; margin-top:auto;">Envoyer ma réservation</button>
+        <p class="pay-note">Votre demande est enregistrée gratuitement. Nous vous rappelons sous 24h pour confirmer le créneau exact. Paiement sur place après intervention, avec reçu pour votre crédit d'impôt.</p>
       </div>
     </div>
   </div>
@@ -654,56 +655,61 @@
   var POCKETBASE_URL = "https://serviceschablais.fly.dev";
   var pb = new PocketBase(POCKETBASE_URL);
 
-  var stripe = Stripe('pk_live_51TqGGeDXjhbmluSkjRr5HEvf2VZpaZVgeqoQaaK1xsiaI2EkEk5nLzK8QKFoOWyVWNVE5RHfideSZYKzpzVHxCnt00R33Xut8A');
-  var elements = stripe.elements();
-  var cardStyle = {
-    style: {
-      base: { fontFamily: 'Inter, sans-serif', fontSize: '14px', color: '#182428', '::placeholder': { color: '#8A9296' } }
-    }
-  };
-  var card = elements.create('card', cardStyle);
-  card.mount('#card-element');
-
   document.getElementById('f-service').addEventListener('change', function(e){
-    document.getElementById('sum-service').textContent = e.target.value;
+    document.getElementById('sum-service').textContent = e.target.value || 'À sélectionner';
   });
   document.getElementById('f-date').addEventListener('change', function(e){
-    document.getElementById('sum-date').textContent = e.target.value;
+    document.getElementById('sum-date').textContent = e.target.value || '—';
   });
   document.getElementById('f-heure').addEventListener('change', function(e){
-    document.getElementById('sum-heure').textContent = e.target.value;
+    document.getElementById('sum-heure').textContent = e.target.value || '—';
   });
-  document.getElementById('sum-service').textContent = document.getElementById('f-service').value;
 
   document.getElementById('pay-btn').addEventListener('click', function(){
+    var btn = document.getElementById('pay-btn');
+    var originalText = btn.textContent;
+    btn.textContent = 'Envoi en cours…';
+    btn.disabled = true;
+
     var reservation = {
-      nom: document.getElementById('f-nom').value,
-      telephone: document.getElementById('f-tel').value,
-      email: document.getElementById('f-mail').value,
-      adresse: document.getElementById('f-adresse').value,
+      nom: document.getElementById('f-nom').value.trim(),
+      telephone: document.getElementById('f-tel').value.trim(),
+      email: document.getElementById('f-mail').value.trim(),
+      adresse: document.getElementById('f-adresse').value.trim(),
       service: document.getElementById('f-service').value,
       date: document.getElementById('f-date').value,
       heure: document.getElementById('f-heure').value,
-      message: document.getElementById('f-msg').value,
+      message: document.getElementById('f-msg').value.trim(),
       statut: "nouvelle",
-      compte_cree_par_admin: false
+      rappel_envoye: false
     };
-    if(!reservation.nom || !reservation.telephone || !reservation.date || !reservation.heure){
-      alert("Merci de renseigner votre nom, votre téléphone, une date et une heure avant de continuer.");
+
+    if(!reservation.nom || !reservation.telephone || !reservation.service || !reservation.date || !reservation.heure){
+      alert("Merci de renseigner votre nom, votre téléphone, un service, une date et une heure.");
+      btn.textContent = originalText;
+      btn.disabled = false;
       return;
     }
-    // Enregistre la réservation dans PocketBase (collection "reservations").
-    // Le client n'a besoin d'aucun compte : la fiche est créée pour lui.
-    // Si un email est fourni, un compte "clients" lui est associé automatiquement
-    // pour que vous puissiez ensuite compléter son dossier depuis l'admin.
+
     pb.collection('reservations').create(reservation)
       .then(function(){
-        alert("Réservation envoyée. Nous vous rappelons pour confirmer le rendez-vous.");
+        alert("Votre réservation a bien été envoyée. Nous vous rappelons sous 24h pour confirmer le créneau exact.");
+        ['f-nom','f-tel','f-mail','f-adresse','f-msg'].forEach(function(id){ document.getElementById(id).value = ''; });
+        document.getElementById('f-service').value = '';
+        document.getElementById('f-date').value = '';
+        document.getElementById('f-heure').value = '';
+        document.getElementById('sum-service').textContent = 'À sélectionner';
+        document.getElementById('sum-date').textContent = '—';
+        document.getElementById('sum-heure').textContent = '—';
       })
-      .catch(function(){
-        alert("Merci ! Votre demande a bien été prise en compte, connectez PocketBase pour l'enregistrement automatique (voir pocketbase-schema.json).");
+      .catch(function(err){
+        console.error(err);
+        alert("Votre demande n'a pas pu être enregistrée en ligne. Appelez le 04 56 35 92 40 ou écrivez-nous sur WhatsApp, nous la noterons directement.");
+      })
+      .finally(function(){
+        btn.textContent = originalText;
+        btn.disabled = false;
       });
-    alert('Étape de démonstration : le paiement carte nécessite un petit service côté serveur pour créer la session Stripe en toute sécurité (voir la note ci-dessous).');
   });
 </script>
 
