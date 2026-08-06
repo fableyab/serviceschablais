@@ -10,7 +10,6 @@ ADD https://github.com/pocketbase/pocketbase/releases/download/v${PB_VERSION}/po
 RUN unzip /tmp/pocketbase.zip -d /pb/ && rm /tmp/pocketbase.zip
 
 COPY pb_hooks /pb/pb_hooks
-COPY pb_migrations /pb/pb_migrations
 
 EXPOSE 8080
 
