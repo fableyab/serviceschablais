@@ -1,0 +1,5 @@
+# Fichiers de configuration et secrets
+admin-password.txt
+*.env
+pb_data/
+pocketbase-fly/admin-password.txt
