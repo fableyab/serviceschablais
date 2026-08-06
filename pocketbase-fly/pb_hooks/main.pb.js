@@ -9,12 +9,12 @@ cronAdd("rappels_quotidiens", "0 8 * * *", () => {
   demain.setDate(demain.getDate() + 1);
   const demainStr = demain.toISOString().slice(0, 10);
 
-  const reservations = $app.findRecordsByFilter(
+  const reservations = $app.dao().findRecordsByFilter(
     "reservations",
     `date = "${demainStr}" && rappel_envoye = false && statut != "annulee"` 
   );
 
-  const parametresList = $app.findRecordsByFilter("parametres", "");
+  const parametresList = $app.dao().findRecordsByFilter("parametres", "");
   const adminEmail = parametresList.length ? parametresList[0].get("email") : "contact@serviceschablais.fr";
 
   reservations.forEach((r) => {
@@ -38,6 +38,6 @@ cronAdd("rappels_quotidiens", "0 8 * * *", () => {
     }
 
     r.set("rappel_envoye", true);
-    $app.save(r);
+    $app.dao().saveRecord(r);
   });
 });
