@@ -18,9 +18,9 @@ migrate((app) => {
       { name: "notes_internes", type: "text", required: false, options: { min: null, max: null, pattern: "" } }
     ]
   });
-  app.save(clients);
+  app.dao().saveCollection(clients);
 
-  const clientsCol = app.findCollectionByNameOrId("clients");
+  const clientsCol = app.dao().findCollectionByNameOrId("clients");
 
   const reservations = new Collection({
     name: "reservations",
@@ -44,7 +44,7 @@ migrate((app) => {
       { name: "rappel_envoye", type: "bool", required: false, options: {} }
     ]
   });
-  app.save(reservations);
+  app.dao().saveCollection(reservations);
 
   const parametres = new Collection({
     name: "parametres",
@@ -63,7 +63,7 @@ migrate((app) => {
       { name: "notif_matin", type: "bool", required: false, options: {} }
     ]
   });
-  app.save(parametres);
+  app.dao().saveCollection(parametres);
 
   const p = new Record(parametres);
   p.set("telephone", "+33456359240");
@@ -72,9 +72,10 @@ migrate((app) => {
   p.set("rappel_veille", true);
   p.set("rappel_2h", false);
   p.set("notif_matin", true);
-  app.save(p);
+  app.dao().saveRecord(p);
 }, (app) => {
-  try { app.delete(app.findCollectionByNameOrId("parametres")); } catch (e) {}
-  try { app.delete(app.findCollectionByNameOrId("reservations")); } catch (e) {}
-  try { app.delete(app.findCollectionByNameOrId("clients")); } catch (e) {}
+  const dao = app.dao();
+  try { dao.deleteCollection(dao.findCollectionByNameOrId("parametres")); } catch (e) {}
+  try { dao.deleteCollection(dao.findCollectionByNameOrId("reservations")); } catch (e) {}
+  try { dao.deleteCollection(dao.findCollectionByNameOrId("clients")); } catch (e) {}
 });
