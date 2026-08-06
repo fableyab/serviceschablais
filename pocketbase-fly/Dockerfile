@@ -13,4 +13,4 @@ COPY pb_hooks /pb/pb_hooks
 
 EXPOSE 8080
 
-CMD ["/pb/pocketbase", "serve", "--http=0.0.0.0:8080", "--dir=/pb/pb_data"]
+CMD ["/pb/pocketbase", "serve", "--http=0.0.0.0:8080", "--dir=/pb/pb_data", "--origins=https://serviceschablais.fr,https://www.serviceschablais.fr,https://fableyab.github.io"]
