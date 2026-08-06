@@ -34,7 +34,7 @@ cronAdd("rappels_quotidiens", "0 8 * * *", () => {
           "Petit rappel : votre rendez-vous " + service + " est prévu demain à " + heure + ".\n\n" +
           "À demain,\nServices Chablais",
       });
-      $app.newMailClient().send(message);
+      try { $app.newMailClient().send(message); } catch (err) { console.log("Erreur envoi rappel :", err.message); }
     }
 
     r.set("rappel_envoye", true);
@@ -43,6 +43,7 @@ cronAdd("rappels_quotidiens", "0 8 * * *", () => {
 });
 
 onRecordAfterCreateRequest((e) => {
+  try {
   const r = e.record;
 
   const parametresList = $app.dao().findRecordsByFilter("parametres", "");
@@ -95,4 +96,5 @@ onRecordAfterCreateRequest((e) => {
       "Connectez-vous à l'admin pour la traiter : https://serviceschablais-pb.fly.dev/_/",
   });
   $app.newMailClient().send(notification);
+  } catch (err) { console.log("Erreur hook email :", err.message); }
 }, "reservations");
