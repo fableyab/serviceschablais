@@ -5,12 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Services Chablais — Aide et conciergerie à domicile, Thonon-les-Bains</title>
 <meta name="description" content="Services Chablais : ménage, jardinage, aide aux seniors et conciergerie à Thonon-les-Bains et dans tout le Chablais. Un seul interlocuteur, un devis clair, une intervention rapide.">
-<meta name="version" content="20250806-03">
+<meta name="version" content="20250806-04">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://js.stripe.com/v3/"></script>
 <style>
   :root{
     --mist:#F6F4EE;
@@ -652,11 +651,7 @@
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8 1-.2.2-.3.2-.5.1-1.4-.7-2.4-1.3-3.3-2.9-.3-.4.3-.4.7-1.3.1-.2 0-.4 0-.5-.1-.1-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
 </a>
 
-<script src="https://cdn.jsdelivr.net/npm/pocketbase@0.21.5/dist/pocketbase.umd.js"></script>
 <script>
-  var POCKETBASE_URL = "https://serviceschablais-pb.fly.dev";
-  var pb = new PocketBase(POCKETBASE_URL);
-
   document.getElementById('f-service').addEventListener('change', function(e){
     document.getElementById('sum-service').textContent = e.target.value || 'À sélectionner';
   });
@@ -682,9 +677,13 @@
       date: document.getElementById('f-date').value,
       heure: document.getElementById('f-heure').value,
       message: document.getElementById('f-msg').value.trim(),
-      statut: "nouvelle",
-      rappel_envoye: false
+      _subject: "Nouvelle réservation — " + document.getElementById('f-nom').value.trim()
     };
+
+    if(reservation.email){
+      reservation._replyto = reservation.email;
+      reservation._cc = reservation.email;
+    }
 
     if(!reservation.nom || !reservation.telephone || !reservation.service || !reservation.date || !reservation.heure){
       alert("Merci de renseigner votre nom, votre téléphone, un service, une date et une heure.");
@@ -693,25 +692,33 @@
       return;
     }
 
-    pb.collection('reservations').create(reservation)
-      .then(function(){
-        alert("Votre réservation a bien été envoyée. Nous vous rappelons sous 24h pour confirmer le créneau exact.");
-        ['f-nom','f-tel','f-mail','f-adresse','f-msg'].forEach(function(id){ document.getElementById(id).value = ''; });
-        document.getElementById('f-service').value = '';
-        document.getElementById('f-date').value = '';
-        document.getElementById('f-heure').value = '';
-        document.getElementById('sum-service').textContent = 'À sélectionner';
-        document.getElementById('sum-date').textContent = '—';
-        document.getElementById('sum-heure').textContent = '—';
-      })
-      .catch(function(err){
-        console.error(err);
-        alert("Votre demande n'a pas pu être enregistrée en ligne. Appelez le 04 56 35 92 40 ou écrivez-nous sur WhatsApp, nous la noterons directement.");
-      })
-      .finally(function(){
-        btn.textContent = originalText;
-        btn.disabled = false;
-      });
+    fetch('https://formspree.io/f/xvzezgzv', {
+      method: 'POST',
+      headers: {'Accept': 'application/json','Content-Type': 'application/json'},
+      body: JSON.stringify(reservation)
+    })
+    .then(function(response){
+      if(response.ok) return response.json();
+      return Promise.reject(response);
+    })
+    .then(function(){
+      alert("Votre réservation a bien été envoyée. Nous vous rappelons sous 24h pour confirmer le créneau exact.");
+      ['f-nom','f-tel','f-mail','f-adresse','f-msg'].forEach(function(id){ document.getElementById(id).value = ''; });
+      document.getElementById('f-service').value = '';
+      document.getElementById('f-date').value = '';
+      document.getElementById('f-heure').value = '';
+      document.getElementById('sum-service').textContent = 'À sélectionner';
+      document.getElementById('sum-date').textContent = '—';
+      document.getElementById('sum-heure').textContent = '—';
+    })
+    .catch(function(err){
+      console.error(err);
+      alert("Votre demande n'a pas pu être enregistrée en ligne. Appelez le 04 56 35 92 40 ou écrivez-nous sur WhatsApp, nous la noterons directement.");
+    })
+    .finally(function(){
+      btn.textContent = originalText;
+      btn.disabled = false;
+    });
   });
 </script>
 
