@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Services Chablais</title>
+<meta name="description" content="Conseils, actus et bonnes pratiques autour de l'aide à domicile, la conciergerie et les services à la personne dans le Chablais.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{ --mist:#F6F4EE; --mist-deep:#EFEBE0; --ink:#182428; --ink-soft:#425058; --lake:#25424B; --lake-deep:#132A30; --brass:#96723A; --brass-light:#C6A264; --line:#DAD4C4; --white:#FFFFFF; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--mist);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif;}
+  .mono{font-family:'IBM Plex Mono',monospace;letter-spacing:0.02em;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 32px;}
+  header{position:sticky;top:0;z-index:50;background:rgba(246,244,238,0.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+  nav{max-width:1000px;margin:0 auto;padding:18px 32px;display:flex;justify-content:space-between;align-items:center;}
+  .brand{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;}
+  .brand span{color:var(--brass);font-style:italic;}
+  .nav-links{display:flex;gap:26px;font-size:14.5px;font-weight:500;}
+  .nav-links a:hover{color:var(--brass);}
+  @media(max-width:700px){.nav-links{display:none;}}
+  .hero{background:var(--lake-deep);color:var(--mist);padding:86px 0 76px;text-align:center;}
+  .hero .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--brass-light);display:block;margin-bottom:12px;}
+  .hero h1{font-size:48px;line-height:1.1;font-weight:500;max-width:720px;margin:0 auto;}
+  .hero p{color:#CBD6D5;max-width:560px;margin:18px auto 0;font-size:17px;}
+  .blog{padding:64px 0;}
+  .articles{display:flex;flex-direction:column;gap:64px;}
+  article.post{display:grid;grid-template-columns:340px 1fr;gap:0;align-items:start;background:var(--white);border:1px solid var(--line);border-radius:4px;overflow:hidden;}
+  .post img{width:100%;height:100%;object-fit:cover;min-height:260px;}
+  .post-body{padding:38px;}
+  .post-meta{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);margin-bottom:12px;}
+  .post h2{font-size:29px;font-weight:500;line-height:1.2;margin-bottom:16px;color:var(--lake-deep);}
+  .post p{margin-bottom:16px;font-size:15.5px;color:var(--ink-soft);}
+  .post ul{margin:0 0 16px 20px;font-size:15.5px;color:var(--ink-soft);}
+  .post li{margin-bottom:8px;}
+  .tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;background:var(--mist-deep);color:var(--lake);padding:4px 10px;border-radius:20px;margin-right:6px;}
+  footer{background:var(--lake-deep);color:var(--mist);padding:48px 0 28px;margin-top:64px;}
+  .foot-bottom{font-size:13px;color:#9AA3A5;border-top:1px solid rgba(255,255,255,0.12);padding-top:22px;margin-top:28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  @media(max-width:800px){article.post{grid-template-columns:1fr;}.post img{height:220px;}}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="brand">Services <span>Chablais</span></a>
+    <div class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#tarifs">Tarifs</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Le blog</span>
+    <h1>Tout savoir sur l'aide à domicile et la conciergerie dans le Chablais.</h1>
+    <p>Conseils pratiques, actualités locales et bonnes idées pour simplifier le quotidien à Thonon, Évian et dans les communes alentour.</p>
+  </div>
+</section>
+
+<main class="blog">
+  <div class="wrap articles">
+
+    <article class="post" id="choisir-aide-domicile">
+      <img src="https://images.pexels.com/photos/29372733/pexels-photo-29372733.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Aide à domicile dans le Chablais" loading="lazy">
+      <div class="post-body">
+        <p class="post-meta"><span class="tag">Conseil</span> 7 août 2026</p>
+        <h2>Bien choisir son aide à domicile dans le Chablais</h2>
+        <p>Choisir une aide à domicile, ce n'est pas seulement une question de tarif. Autour de Thonon-les-Bains, Évian et les communes du Chablais, les familles recherchent avant tout une relation de confiance, une connaissance du terrain et une réactivité qu'une grande plateforme ne peut pas toujours garantir.</p>
+        <p>La première étape consiste à identifier le besoin réel : aide administrative, accompagnement aux déplacements, jardinage, conciergerie, ou simple compagnie. Une fois le besoin clarifié, il est utile de vérifier la zone d'intervention, les modalités de facturation, et surtout le fait que l'interlocuteur soit le même tout au long du suivi.</p>
+        <p>Demander un devis détaillé, sans engagement, permet de comparer sereinement. Pensez aussi à vérifier l'assurance responsabilité civile professionnelle et la possibilité d'obtenir un reçu pour le crédit d'impôt. Un bon professionnel prend le temps de répondre à vos questions en personne, au téléphone ou par visioconférence, avant même la première intervention.</p>
+      </div>
+    </article>
+
+    <article class="post" id="aide-administrative">
+      <img src="https://images.pexels.com/photos/7545301/pexels-photo-7545301.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Aide administrative à domicile" loading="lazy">
+      <div class="post-body">
+        <p class="post-meta"><span class="tag">Aide administrative</span> 6 août 2026</p>
+        <h2>L'aide administrative à domicile : fini la paperasse</h2>
+        <p>Le courrier administratif s'accumule, les échéances passent, et certaines démarches en ligne peuvent devenir un vrai casse-tête. Pour de nombreux habitants du Chablais, une aide administrative à domicile change le quotidien : classement, relances, prise de rendez-vous et rédaction de courriers sont gérés sereinement.</p>
+        <p>L'objectif n'est pas de remplacer le mandant, mais de l'accompagner. Le professionnel peut par exemple préparer les dossiers avant un rendez-vous avec la Caisse d'allocations familiales, aider à compléter un arrêt maladie, ou organiser les documents pour un déménagement.</p>
+        <p>Cette prestation est particulièrement utile pour les personnes âgées en perte d'autonomie, les parents débordés ou les personnes en situation de handicap. Elle est éligible au crédit d'impôt de 50%, ce qui en fait un service à la fois pratique et accessible.</p>
+      </div>
+    </article>
+
+    <article class="post" id="sorties-loisirs-seniors">
+      <img src="https://images.pexels.com/photos/19453150/pexels-photo-19453150.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Sorties et loisirs pour seniors" loading="lazy">
+      <div class="post-body">
+        <p class="post-meta"><span class="tag">Seniors</span> 5 août 2026</p>
+        <h2>Sorties et loisirs pour seniors : garder le lien</h2>
+        <p>Le vieillissement n'a pas à rimer avec isolement. Autour du lac Léman, de nombreuses activités sont accessibles aux seniors : balades sur le bord du lac, visites de musées, marchés locaux, ou cafés littéraires. Un accompagnement personnalisé permet de continuer à en profiter en toute sécurité.</p>
+        <p>L'accompagnant adapte le rythme, gère les déplacements, veille à la prise de médicaments si nécessaire, et surtout crée un moment de partage. Cela peut être une sortie hebdomadaire, une virée shopping, ou la découverte de nouvelles activités proposées par les mairies du Chablais.</p>
+        <p>Pour les familles, c'est aussi un moyen de soulager l'emploi du temps tout en sachant que leurs proches sortent, bougent et gardent le contact avec le monde extérieur. Une démarche simple, qui améliore visiblement le moral et la forme.</p>
+      </div>
+    </article>
+
+    <article class="post" id="aide-deplacements">
+      <img src="https://images.pexels.com/photos/6647037/pexels-photo-6647037.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Aide aux déplacements" loading="lazy">
+      <div class="post-body">
+        <p class="post-meta"><span class="tag">Mobilité</span> 4 août 2026</p>
+        <h2>Aide aux déplacements : rester mobile en toute sécurité</h2>
+        <p>Perdre en autonomie ne signifie pas renoncer à bouger. L'aide aux déplacements à domicile propose un accompagnement sur mesure pour les rendez-vous médicaux, les courses, les démarches administratives ou simplement une promenade dans le quartier.</p>
+        <p>Un accompagnateur expérimenté prend en charge la préparation du déplacement, l'aide à la marche, le transfert depuis le lit ou le fauteuil, et le retour à domicile. Il veille à la sécurité du senior tout en respectant son rythme et ses envies.</p>
+        <p>Ce service couvre l'ensemble du Chablais, de Thonon à Évian, en passant par les communes environnantes. Il peut être ponctuel ou régulier, à l'heure ou à la demi-journée. Pour les proches, c'est l'assurance que leurs parents se déplacent accompagnés, sans stress.</p>
+      </div>
+    </article>
+
+    <article class="post" id="jardinage-entretien">
+      <img src="https://images.pexels.com/photos/27176062/pexels-photo-27176062.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Jardinage et entretien extérieur" loading="lazy">
+      <div class="post-body">
+        <p class="post-meta"><span class="tag">Extérieur</span> 3 août 2026</p>
+        <h2>Jardinage et entretien extérieur : votre jardin toute l'année</h2>
+        <p>Un jardin bien entretenu, c'est un vrai bonheur au quotidien. Mais entre la tonte régulière, la taille des haies, le désherbage et les petits aménagements, le temps manque souvent. Un jardinier à domicile peut intervenir ponctuellement ou suivre votre espace vert tout au long de l'année.</p>
+        <p>Les interventions incluent la tonte, la taille, le ramassage des feuilles, l'entretien des massifs, le nettoyage des allées et les petits travaux d'aménagement. Le tout en respectant vos envies et la faune locale du Chablais.</p>
+        <p>Peu importe la taille du terrain : une terrasse, un potager ou un grand jardin. L'important est de bénéficier d'un extérieur agréable sans se blesser ou sans y consacrer tout son week-end.</p>
+      </div>
+    </article>
+
+    <article class="post" id="petits-travaux-bricolage">
+      <img src="https://images.pexels.com/photos/33388399/pexels-photo-33388399.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Petits travaux et bricolage" loading="lazy">
+      <div class="post-body">
+        <p class="post-meta"><span class="tag">Bricolage</span> 2 août 2026</p>
+        <h2>Petits travaux et bricolage : la solution pratique</h2>
+        <p>Changer un robinet, monter une étagère, réparer une prise ou installer des rideaux : de petits travaux s'accumulent et peuvent devenir une source de stress. Un bricoleur à domicile intervient rapidement pour régler ces problèmes du quotidien sans engager de gros frais.</p>
+        <p>L'avantage d'un professionnel local est la réactivité : souvent, le problème est résolu la semaine même. L'intervenant apporte son matériel, explique ce qu'il fait, et vous laisse un espace propre en fin de prestation.</p>
+        <p>Ces interventions sont idéales pour les personnes âgées qui ne se sentent plus en sécurité sur un escabeau, ou pour les actifs qui n'ont pas le temps de s'occuper de la maison le week-end.</p>
+      </div>
+    </article>
+
+    <article class="post" id="conciergerie-residence-secondaire">
+      <img src="https://images.pexels.com/photos/8112187/pexels-photo-8112187.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Conciergerie et gestion des clés" loading="lazy">
+      <div class="post-body">
+        <p class="post-meta"><span class="tag">Conciergerie</span> 1 août 2026</p>
+        <h2>Conciergerie et gestion de résidence secondaire</h2>
+        <p>Le Chablais attire de nombreux propriétaires de résidences secondaires. Mais entre l'entretien, l'ouverture et la fermeture saisonnière, la gestion des clés et la coordination des interventions, gérer à distance peut s'avérer compliqué. Une conciergerie à domicile prend en charge ces contraintes.</p>
+        <p>Les missions incluent la remise des clés, l'entretien régulier, l'aération, le contrôle du chauffage, le ménage avant l'arrivée, la gestion des livraisons et le suivi des petits travaux. Vous profitez de votre maison sans avoir à vous en occuper à distance.</p>
+        <p>Ce service rassure également les propriétaires loueurs en saisonnier : quelqu'un de confiance est présent pour accueillir les voyageurs, gérer les imprévus et s'assurer que tout est en ordre entre deux locations.</p>
+      </div>
+    </article>
+
+    <article class="post" id="courses-et-demarches">
+      <img src="https://images.pexels.com/photos/9475239/pexels-photo-9475239.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Courses et démarches accompagnées" loading="lazy">
+      <div class="post-body">
+        <p class="post-meta"><span class="tag">Quotidien</span> 31 juillet 2026</p>
+        <h2>Courses et démarches : gagner du temps au quotidien</h2>
+        <p>Les courses, les retraits de colis, les dépôts de dossier : autant de petites tâches qui prennent du temps et de l'énergie. Un accompagnement pour les courses et démarches permet de les réaliser sereinement, seul ou accompagné, selon les envies.</p>
+        <p>Le professionnel peut conduire la personne au supermarché, l'aider à faire ses achats, porter les sacs, ranger les provisions, ou effectuer des démarches à sa place avec son accord. Cela évite les déplacements fatigants et les oublis répétés.</p>
+        <p>Cette prestation est particulièrement appréciée par les seniors qui souhaitent rester autonomes mais épargner leurs forces, ainsi que par les personnes en convalescence ou en situation de handicap.</p>
+      </div>
+    </article>
+
+    <article class="post" id="credit-impot-services-personne">
+      <img src="https://images.pexels.com/photos/9462331/pexels-photo-9462331.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Crédit d'impôt services à la personne" loading="lazy">
+      <div class="post-body">
+        <p class="post-meta"><span class="tag">Finance</span> 30 juillet 2026</p>
+        <h2>Le crédit d'impôt de 50% pour les services à la personne</h2>
+        <p>En France, de nombreux services à domicile bénéficient d'un crédit d'impôt égal à 50% des dépenses engagées. Aide ménagère, jardinage, bricolage, garde d'enfants, aide informatique, conciergerie : les prestations éligibles sont nombreuses et permettent de réduire considérablement le coût réel de l'aide.</p>
+        <p>Pour en bénéficier, il faut simplement obtenir un reçu de la part du prestataire et le déclarer dans sa feuille d'impôt. Le montant est plafonné, mais il couvre une grande partie des interventions courantes. Votre prestataire local doit être en mesure de vous fournir ce document sans délai.</p>
+        <p>Attention : pour que la prestation soit éligible, l'intervenant doit exercer dans le cadre d'un emploi déclaré ou d'une structure agréée. Prenez donc le soin de vérifier ce point avant de signer un devis, afin de profiter pleinement de l'avantage fiscal.</p>
+      </div>
+    </article>
+
+    <article class="post" id="preparer-arrivee-aide-domicile">
+      <img src="https://images.pexels.com/photos/7446755/pexels-photo-7446755.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Préparer l'arrivée d'une aide à domicile" loading="lazy">
+      <div class="post-body">
+        <p class="post-meta"><span class="tag">Pratique</span> 29 juillet 2026</p>
+        <h2>Préparer l'arrivée d'une aide à domicile : 5 conseils</h2>
+        <p>Faire appel à une aide à domicile pour la première fois peut susciter des questions. Un peu de préparation permet de rendre les premiers rendez-vous fluides et rassurants, aussi bien pour la personne aidée que pour la famille.</p>
+        <ul>
+          <li><strong>Listez les tâches du quotidien</strong> que vous souhaitez déléguer : ménage, repas, courses, démarches, jardinage, etc.</li>
+          <li><strong>Notez les habitudes</strong> de la personne : horaires, goûts, contraintes médicales, animaux domestiques.</li>
+          <li><strong>Préparez les accès</strong> de la maison : clés, digicodes, places de parking, accès Wi-Fi si nécessaire.</li>
+          <li><strong>Organisez un premier entretien</strong> pour faire connaissance et poser toutes les questions.</li>
+          <li><strong>Prévoyez un cahier ou un suivi</strong> simple pour échanger avec l'intervenant et les proches.</li>
+        </ul>
+        <p>Avec ces éléments en main, la première intervention se déroule sereinement. Le plus important reste la confiance : un bon professionnel écoute, s'adapte et respecte le rythme de la personne qu'il accompagne.</p>
+      </div>
+    </article>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-bottom">
+      <span>© 2026 Services Chablais — Tous droits réservés</span>
+      <span><a href="index.html">Retour à l'accueil</a> · <a href="mailto:contact@serviceschablais.fr">contact@serviceschablais.fr</a></span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
